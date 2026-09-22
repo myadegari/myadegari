@@ -1,18 +1,35 @@
 "use client";
 
+import Link from "next/link";
 import { HugeiconsIcon as Icon } from "@hugeicons/react";
-import { Certificate01Icon, ExternalLinkIcon } from "@hugeicons/core-free-icons";
+import { Certificate01Icon, ExternalLinkIcon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { SectionCard } from "@/components/shared/section-card";
+import { Button } from "@/components/ui/button";
 import { useI18n } from "@/components/providers/i18n-provider";
 import type { CertificateItem } from "@/lib/types";
 
 export function CertificatesSection() {
   const { t, data } = useI18n();
+  const preview = data.certificates.slice(0, 4);
 
   return (
-    <SectionCard id="certificates" title={t.certificatesTitle}>
+    <SectionCard
+      id="certificates"
+      title={t.certificatesTitle}
+      action={
+        <Button
+          render={<Link href="/certificates" />}
+          variant="ghost"
+          size="sm"
+          className="-me-2 text-primary hover:text-primary"
+        >
+          {t.viewAll}
+          <Icon icon={ArrowRight01Icon} data-icon="inline-end" className="rtl:rotate-180" />
+        </Button>
+      }
+    >
       <ul className="divide-y divide-border">
-        {data.certificates.map((item: CertificateItem) => (
+        {preview.map((item: CertificateItem) => (
           <li
             key={`${item.name}-${item.date}`}
             className="flex items-start gap-3 py-4 first:pt-0 last:pb-0"

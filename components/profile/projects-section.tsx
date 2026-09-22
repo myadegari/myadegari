@@ -1,8 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { HugeiconsIcon as Icon } from "@hugeicons/react";
-import { ExternalLinkIcon, ArrowUpRightIcon } from "@hugeicons/core-free-icons";
+import { ExternalLinkIcon, ArrowUpRightIcon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { SectionCard } from "@/components/shared/section-card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -23,8 +24,24 @@ export function ProjectsSection() {
     ? data.projects.filter((p) => p.tags.includes(activeTag))
     : data.projects;
 
+  const preview = filtered.slice(0, 4);
+
   return (
-    <SectionCard id="projects" title={t.projectsTitle}>
+    <SectionCard
+      id="projects"
+      title={t.projectsTitle}
+      action={
+        <Button
+          render={<Link href="/projects" />}
+          variant="ghost"
+          size="sm"
+          className="-me-2 text-primary hover:text-primary"
+        >
+          {t.viewAll}
+          <Icon icon={ArrowRight01Icon} data-icon="inline-end" className="rtl:rotate-180" />
+        </Button>
+      }
+    >
       <div className="mb-4 flex flex-wrap gap-2" role="group" aria-label={t.projectsTitle}>
         <button
           type="button"
@@ -58,13 +75,18 @@ export function ProjectsSection() {
       </div>
 
       <ul className="grid gap-4 sm:grid-cols-2">
-        {filtered.map((project) => (
+        {preview.map((project) => (
           <li
-            key={project.title}
+            key={project.slug}
             className="flex flex-col gap-3 rounded-lg border border-border bg-background/50 p-4 transition-shadow hover:shadow-sm"
           >
             <div className="flex flex-col gap-1">
-              <h3 className="text-base font-semibold">{project.title}</h3>
+              <Link
+                href={`/projects/${project.slug}`}
+                className="text-base font-semibold hover:text-primary hover:underline"
+              >
+                {project.title}
+              </Link>
               <p className="text-sm leading-relaxed text-muted-foreground">
                 {project.description}
               </p>
@@ -76,8 +98,16 @@ export function ProjectsSection() {
                 </Badge>
               ))}
             </div>
-            {(project.demo || project.repo) && (
-              <div className="flex flex-wrap gap-3 border-t border-border pt-3">
+            <div className="flex flex-wrap items-center gap-3 border-t border-border pt-3">
+              <Button
+                render={<Link href={`/projects/${project.slug}`} />}
+                variant="ghost"
+                size="sm"
+                className="-ms-2 text-primary hover:text-primary"
+              >
+                <Icon icon={ArrowUpRightIcon} data-icon="inline-start" />
+                {t.viewDetails}
+              </Button>
                 {project.demo && (
                   <Button
                     render={<a href={project.demo} target="_blank" rel="noopener noreferrer" />}
@@ -101,7 +131,6 @@ export function ProjectsSection() {
                   </Button>
                 )}
               </div>
-            )}
           </li>
         ))}
       </ul>

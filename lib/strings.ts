@@ -48,6 +48,26 @@ export interface UiStrings {
   themeLight: string;
   themeDark: string;
   openToWork: string;
+  viewAll: string;
+  viewDetails: string;
+  backToHome: string;
+  backToProjects: string;
+  searchProjects: string;
+  searchCertificates: string;
+  searchPlaceholder: string;
+  noResults: string;
+  clearFilters: string;
+  overviewTitle: string;
+  featuresTitle: string;
+  techStackTitle: string;
+  roleTitle: string;
+  challengesTitle: string;
+  galleryTitle: string;
+  projectNotFound: string;
+  projectNotFoundLead: string;
+  prevProject: string;
+  nextProject: string;
+  showingCount: string;
 }
 
 const en: UiStrings = {
@@ -99,6 +119,26 @@ const en: UiStrings = {
   themeLight: "Light mode",
   themeDark: "Dark mode",
   openToWork: "Open to work",
+  viewAll: "View all",
+  viewDetails: "View details",
+  backToHome: "Back to home",
+  backToProjects: "Back to projects",
+  searchProjects: "Search projects",
+  searchCertificates: "Search certificates",
+  searchPlaceholder: "Type to search...",
+  noResults: "No results found.",
+  clearFilters: "Clear filters",
+  overviewTitle: "Overview",
+  featuresTitle: "Key features",
+  techStackTitle: "Tech stack",
+  roleTitle: "My role",
+  challengesTitle: "Challenges",
+  galleryTitle: "Gallery",
+  projectNotFound: "Project not found",
+  projectNotFoundLead: "The project you are looking for does not exist.",
+  prevProject: "Previous project",
+  nextProject: "Next project",
+  showingCount: "Showing",
 };
 
 const fa: UiStrings = {
@@ -150,6 +190,26 @@ const fa: UiStrings = {
   themeLight: "حالت روشن",
   themeDark: "حالت تاریک",
   openToWork: "آماده همکاری",
+  viewAll: "مشاهده همه",
+  viewDetails: "جزئیات پروژه",
+  backToHome: "بازگشت به خانه",
+  backToProjects: "بازگشت به پروژه‌ها",
+  searchProjects: "جستجوی پروژه‌ها",
+  searchCertificates: "جستجوی گواهی‌نامه‌ها",
+  searchPlaceholder: "برای جستجو بنویسید...",
+  noResults: "نتیجه‌ای پیدا نشد.",
+  clearFilters: "پاک کردن فیلترها",
+  overviewTitle: "معرفی",
+  featuresTitle: "ویژگی‌های کلیدی",
+  techStackTitle: "تکنولوژی‌ها",
+  roleTitle: "نقش من",
+  challengesTitle: "چالش‌ها",
+  galleryTitle: "گالری",
+  projectNotFound: "پروژه پیدا نشد",
+  projectNotFoundLead: "پروژه‌ای که دنبال آن هستید وجود ندارد.",
+  prevProject: "پروژه قبلی",
+  nextProject: "پروژه بعدی",
+  showingCount: "نمایش",
 };
 
 export const strings: Record<Lang, UiStrings> = { en, fa };

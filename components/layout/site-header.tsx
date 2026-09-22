@@ -28,7 +28,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/85">
       <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-3 px-4">
         <Link
-          href="#top"
+          href="/"
           className="flex shrink-0 items-center gap-2"
           aria-label={name}
         >
@@ -44,7 +44,7 @@ export function SiteHeader() {
           {navItems.map((item) => (
             <a
               key={item.id}
-              href={`#${item.id}`}
+              href={`/#${item.id}`}
               className="rounded-md px-2.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               {t[item.key]}
@@ -87,7 +87,7 @@ export function SiteHeader() {
           {navItems.map((item) => (
             <a
               key={item.id}
-              href={`#${item.id}`}
+              href={`/#${item.id}`}
               onClick={() => setOpen(false)}
               className="rounded-md px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >

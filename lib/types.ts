@@ -16,11 +16,18 @@ export interface EducationItem {
 }
 
 export interface ProjectItem {
+  slug: string;
   title: string;
   description: string;
   tags: string[];
   demo?: string;
   repo?: string;
+  overview?: string;
+  features?: string[];
+  techStack?: string[];
+  role?: string;
+  challenges?: string;
+  gallery?: string[];
 }
 
 export interface CertificateItem {
