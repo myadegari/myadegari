@@ -1,0 +1,244 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+
+  --font-sans: "Public Sans", "Vazirmatn", var(--font-public-sans), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
+
+  --font-heading: "Public Sans", "Vazirmatn", var(--font-public-sans), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
+
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-sidebar-border: var(--sidebar-border);
+
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+
+  --color-sidebar-accent: var(--sidebar-accent);
+
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+
+  --color-sidebar-primary: var(--sidebar-primary);
+
+  --color-sidebar-foreground: var(--sidebar-foreground);
+
+  --color-sidebar: var(--sidebar);
+
+  --color-chart-5: var(--chart-5);
+
+  --color-chart-4: var(--chart-4);
+
+  --color-chart-3: var(--chart-3);
+
+  --color-chart-2: var(--chart-2);
+
+  --color-chart-1: var(--chart-1);
+
+  --color-ring: var(--ring);
+
+  --color-input: var(--input);
+
+  --color-border: var(--border);
+
+  --color-destructive: var(--destructive);
+
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-accent: var(--accent);
+
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-muted: var(--muted);
+
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-secondary: var(--secondary);
+
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-primary: var(--primary);
+
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-popover: var(--popover);
+
+  --color-card-foreground: var(--card-foreground);
+
+  --color-card: var(--card);
+
+  --color-foreground: var(--foreground);
+
+  --color-background: var(--background);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+
+  --radius-md: calc(var(--radius) * 0.8);
+
+  --radius-lg: var(--radius);
+
+  --radius-xl: calc(var(--radius) * 1.4);
+
+  --radius-2xl: calc(var(--radius) * 1.8);
+
+  --radius-3xl: calc(var(--radius) * 2.2);
+
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+
+  --background: #f4f2ee;
+
+  --foreground: #191919;
+
+  --card: #ffffff;
+
+  --card-foreground: #191919;
+
+  --popover: #ffffff;
+
+  --popover-foreground: #191919;
+
+  --primary: #0a66c2;
+
+  --primary-foreground: #ffffff;
+
+  --secondary: #ebebeb;
+
+  --secondary-foreground: #404040;
+
+  --muted: #f3f2ef;
+
+  --muted-foreground: #666666;
+
+  --accent: #e8e8e8;
+
+  --accent-foreground: #191919;
+
+  --destructive: #b24020;
+
+  --border: #e0dfdc;
+
+  --input: #b0b0b0;
+
+  --ring: #0a66c2;
+
+  --chart-1: #0a66c2;
+
+  --chart-2: #4497d9;
+
+  --chart-3: #70b5f9;
+
+  --chart-4: #004182;
+
+  --chart-5: #0073b1;
+
+  --radius: 0.5rem;
+
+  --sidebar: #ffffff;
+
+  --sidebar-foreground: #191919;
+
+  --sidebar-primary: #0a66c2;
+
+  --sidebar-primary-foreground: #ffffff;
+
+  --sidebar-accent: #ebebeb;
+
+  --sidebar-accent-foreground: #191919;
+
+  --sidebar-border: #e0dfdc;
+
+  --sidebar-ring: #0a66c2;
+}
+
+.dark {
+
+  --background: #1b1f23;
+
+  --foreground: #e8e8e8;
+
+  --card: #22272b;
+
+  --card-foreground: #e8e8e8;
+
+  --popover: #24282c;
+
+  --popover-foreground: #e8e8e8;
+
+  --primary: #0a66c2;
+
+  --primary-foreground: #ffffff;
+
+  --secondary: #33383d;
+
+  --secondary-foreground: #e8e8e8;
+
+  --muted: #2a2f34;
+
+  --muted-foreground: #a0a6ad;
+
+  --accent: #33383d;
+
+  --accent-foreground: #e8e8e8;
+
+  --destructive: #e06c53;
+
+  --border: rgb(255 255 255 / 10%);
+
+  --input: rgb(255 255 255 / 18%);
+
+  --ring: #70b5f9;
+
+  --chart-1: #70b5f9;
+
+  --chart-2: #4497d9;
+
+  --chart-3: #0a66c2;
+
+  --chart-4: #b0d4f5;
+
+  --chart-5: #004182;
+
+  --sidebar: #22272b;
+
+  --sidebar-foreground: #e8e8e8;
+
+  --sidebar-primary: #70b5f9;
+
+  --sidebar-primary-foreground: #1b1f23;
+
+  --sidebar-accent: #33383d;
+
+  --sidebar-accent-foreground: #e8e8e8;
+
+  --sidebar-border: rgb(255 255 255 / 10%);
+
+  --sidebar-ring: #70b5f9;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+  html[lang="fa"] {
+    font-family: "Vazirmatn", "Public Sans", var(--font-vazirmatn), var(--font-public-sans), ui-sans-serif, system-ui, sans-serif;
+  }
+}
+
+@utility profile-banner {
+  background-image: linear-gradient(
+    120deg,
+    oklch(0.322 0.09 246) 0%,
+    oklch(0.488 0.143 246) 45%,
+    oklch(0.746 0.112 246) 100%
+  );
+}
