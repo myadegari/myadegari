@@ -9,6 +9,7 @@ import {
 } from "@hugeicons/core-free-icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { AnimatedSection } from "@/fx/animated-section";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { cn } from "@/lib/utils";
 
@@ -106,9 +107,12 @@ export function CertificatesList() {
         </div>
       ) : (
         <ul className="divide-y divide-border">
-          {filtered.map((item) => (
-            <li
+          {filtered.map((item, index) => (
+            <AnimatedSection
+              as="li"
               key={`${item.name}-${item.issuer}-${item.date}`}
+              delay={Math.min(index * 0.05, 0.3)}
+              burstScale={0.5}
               className="flex items-start gap-3 py-4 first:pt-0 last:pb-0"
             >
               <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-border bg-muted text-muted-foreground">
@@ -136,7 +140,7 @@ export function CertificatesList() {
                   </a>
                 )}
               </div>
-            </li>
+            </AnimatedSection>
           ))}
         </ul>
       )}

@@ -12,7 +12,7 @@ import { RightRail } from "@/components/profile/right-rail";
 export default function Home() {
   return (
     <>
-      <SiteHeader />
+      {/* <SiteHeader /> */}
       <div className="flex-1">
         <div className="mx-auto max-w-5xl px-4 py-6">
           <ProfileHero />

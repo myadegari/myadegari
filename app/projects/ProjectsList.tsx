@@ -11,6 +11,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { AnimatedSection } from "@/fx/animated-section";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { cn } from "@/lib/utils";
 
@@ -107,9 +108,12 @@ export function ProjectsList() {
         </div>
       ) : (
         <ul className="grid gap-4 sm:grid-cols-2">
-          {filtered.map((project) => (
-            <li
+          {filtered.map((project, index) => (
+            <AnimatedSection
+              as="li"
               key={project.slug}
+              delay={Math.min(index * 0.05, 0.3)}
+              burstScale={0.6}
               className="flex flex-col gap-3 rounded-lg border border-border bg-background/50 p-4 transition-shadow hover:shadow-sm"
             >
               <div className="flex flex-col gap-1">
@@ -163,7 +167,7 @@ export function ProjectsList() {
                   </Button>
                 )}
               </div>
-            </li>
+            </AnimatedSection>
           ))}
         </ul>
       )}

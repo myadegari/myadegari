@@ -9,8 +9,10 @@ import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { LanguageToggle } from "@/components/shared/language-toggle";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { useContentBrand } from "@/components/shared/use-content-brand";
+import { SquishName } from "@/components/layout/squish-name";
 import { cn } from "@/lib/utils";
-
+import ProfileImage from "../../public/profile.jpg";
+import Image from "next/image";
 const navItems = [
   { id: "about", key: "navAbout" as const },
   { id: "experience", key: "navExperience" as const },
@@ -20,8 +22,9 @@ const navItems = [
 ];
 
 export function SiteHeader() {
-  const { t } = useI18n();
-  const { name, initials } = useContentBrand();
+  const { t, lang } = useI18n();
+  const { name } = useContentBrand();
+  const shortName = lang === "fa" ? "مهیاد" : "Mehyad";
   const [open, setOpen] = useState(false);
 
   return (
@@ -32,12 +35,16 @@ export function SiteHeader() {
           className="flex shrink-0 items-center gap-2"
           aria-label={name}
         >
-          <span className="flex size-8 items-center justify-center rounded-md bg-primary text-xs font-bold text-primary-foreground">
-            {initials}
+          <span className="flex size-8 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground overflow-clip  ring-2 ring-card">
+            {/* {initials} */}
+              <Image src={ProfileImage} alt="Profile image" className=" object-cover w-full scale-150"/>
           </span>
-          <span className="hidden text-sm font-semibold tracking-tight sm:inline">
-            {name}
-          </span>
+          <SquishName
+            key={name}
+            full={name}
+            short={shortName}
+            split={lang === "fa" ? "words" : "chars"}
+          />
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">

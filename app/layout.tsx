@@ -3,6 +3,7 @@ import { Vazirmatn, Public_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { AppProviders } from "@/components/providers/app-providers";
+import { SiteHeader } from "@/components/layout/site-header";
 
 const publicSans = Public_Sans({
   subsets: ["latin"],
@@ -37,7 +38,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="min-h-full flex flex-col">
-        <AppProviders>{children}</AppProviders>
+        <AppProviders>
+          <SiteHeader/>
+          {children}
+          </AppProviders>
       </body>
     </html>
   );

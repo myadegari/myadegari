@@ -18,7 +18,7 @@ export function RightRail() {
 
   return (
     <aside className="space-y-6 lg:sticky lg:top-36" aria-label="Profile details">
-      <SectionCard id="quick-contact" title={t.quickContactTitle}>
+      <SectionCard id="quick-contact" title={t.quickContactTitle} dustExit="stayOnDesktop">
         <ul className="space-y-3 text-sm">
           <li>
             <a
@@ -47,7 +47,7 @@ export function RightRail() {
         </ul>
       </SectionCard>
 
-      <SectionCard id="skills" title={t.skillsTitle}>
+      <SectionCard id="skills" title={t.skillsTitle} dustExit="stayOnDesktop">
         <div className="flex flex-wrap gap-1.5">
           {profile.skills.map((skill) => (
             <Badge key={skill} variant="secondary">
@@ -57,7 +57,7 @@ export function RightRail() {
         </div>
       </SectionCard>
 
-      <SectionCard id="languages" title={t.languagesTitle}>
+      <SectionCard id="languages" title={t.languagesTitle} dustExit="stayOnDesktop">
         <ul className="space-y-2.5 text-sm text-foreground/90">
           {profile.languages.map((language) => (
             <li key={language} className="flex items-center gap-2.5">
@@ -71,7 +71,7 @@ export function RightRail() {
         </ul>
       </SectionCard>
 
-      <SectionCard id="rail-education" title={t.educationTitle}>
+      <SectionCard id="rail-education" title={t.educationTitle} dustExit="stayOnDesktop">
         <ul className="space-y-3 text-sm">
           {data.education.slice(0, 2).map((item) => (
             <li key={`${item.school}-${item.period}`} className="flex gap-2.5">

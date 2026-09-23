@@ -1,4 +1,7 @@
+"use client";
+
 import { cn } from "@/lib/utils";
+import { useDustSection, type DustExitMode } from "@/fx/use-dust-section";
 
 interface SectionCardProps {
   id: string;
@@ -6,11 +9,14 @@ interface SectionCardProps {
   action?: React.ReactNode;
   children: React.ReactNode;
   className?: string;
+  dustExit?: DustExitMode;
 }
 
-export function SectionCard({ id, title, action, children, className }: SectionCardProps) {
+export function SectionCard({ id, title, action, children, className, dustExit = "dust" }: SectionCardProps) {
+  const ref = useDustSection<HTMLElement>({ exit: dustExit });
   return (
     <section
+      ref={ref}
       id={id}
       className={cn(
         "scroll-mt-36 rounded-lg bg-card text-card-foreground ring-1 ring-foreground/10",

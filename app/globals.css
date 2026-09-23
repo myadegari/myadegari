@@ -242,3 +242,31 @@
     oklch(0.746 0.112 246) 100%
   );
 }
+
+/* Header name: fixed-size clipped stage ("card") holding two stacked versions.
+   Grid stacks both layers in one cell, so the slot always keeps the full
+   (unsquished) width — siblings never shift. GSAP rolls units vertically;
+   CSS only provides layout and clipping. */
+.squish-stage {
+  display: grid;
+  overflow: hidden;
+  padding-block: 0.12em;
+  margin-block: -0.12em;
+}
+
+.squish-layer {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.squish-unit {
+  display: inline-block;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .squish-unit {
+    will-change: auto;
+  }
+}

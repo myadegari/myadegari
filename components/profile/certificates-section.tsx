@@ -4,6 +4,7 @@ import Link from "next/link";
 import { HugeiconsIcon as Icon } from "@hugeicons/react";
 import { Certificate01Icon, ExternalLinkIcon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { SectionCard } from "@/components/shared/section-card";
+import { AnimatedSection } from "@/fx/animated-section";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/components/providers/i18n-provider";
 import type { CertificateItem } from "@/lib/types";
@@ -29,9 +30,12 @@ export function CertificatesSection() {
       }
     >
       <ul className="divide-y divide-border">
-        {preview.map((item: CertificateItem) => (
-          <li
+        {preview.map((item: CertificateItem, index: number) => (
+          <AnimatedSection
+            as="li"
             key={`${item.name}-${item.date}`}
+            delay={Math.min(index * 0.06, 0.24)}
+            burstScale={0.5}
             className="flex items-start gap-3 py-4 first:pt-0 last:pb-0"
           >
             <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-border bg-muted text-muted-foreground">
@@ -59,7 +63,7 @@ export function CertificatesSection() {
                 </a>
               )}
             </div>
-          </li>
+          </AnimatedSection>
         ))}
       </ul>
     </SectionCard>

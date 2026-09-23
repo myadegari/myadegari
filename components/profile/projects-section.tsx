@@ -5,6 +5,7 @@ import Link from "next/link";
 import { HugeiconsIcon as Icon } from "@hugeicons/react";
 import { ExternalLinkIcon, ArrowUpRightIcon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { SectionCard } from "@/components/shared/section-card";
+import { AnimatedSection } from "@/fx/animated-section";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/components/providers/i18n-provider";
@@ -75,9 +76,12 @@ export function ProjectsSection() {
       </div>
 
       <ul className="grid gap-4 sm:grid-cols-2">
-        {preview.map((project) => (
-          <li
+        {preview.map((project, index) => (
+          <AnimatedSection
+            as="li"
             key={project.slug}
+            delay={Math.min(index * 0.06, 0.24)}
+            burstScale={0.6}
             className="flex flex-col gap-3 rounded-lg border border-border bg-background/50 p-4 transition-shadow hover:shadow-sm"
           >
             <div className="flex flex-col gap-1">
@@ -131,7 +135,7 @@ export function ProjectsSection() {
                   </Button>
                 )}
               </div>
-          </li>
+          </AnimatedSection>
         ))}
       </ul>
     </SectionCard>

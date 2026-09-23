@@ -10,6 +10,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/components/providers/i18n-provider";
+import { AnimatedSection } from "@/fx/animated-section";
 import { getProjectBySlug, getProjectNeighbors } from "@/lib/projects";
 
 export function ProjectDetail({ slug }: { slug: string }) {
@@ -44,7 +45,7 @@ export function ProjectDetail({ slug }: { slug: string }) {
         </Link>
       </nav>
 
-      <header className="rounded-lg bg-card p-4 text-card-foreground ring-1 ring-foreground/10 sm:p-6">
+      <AnimatedSection as="header" className="rounded-lg bg-card p-4 text-card-foreground ring-1 ring-foreground/10 sm:p-6">
         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{project.title}</h1>
         <p className="mt-2 leading-relaxed text-muted-foreground">{project.description}</p>
         <div className="mt-3 flex flex-wrap gap-1.5">
@@ -73,53 +74,53 @@ export function ProjectDetail({ slug }: { slug: string }) {
             )}
           </div>
         )}
-      </header>
+      </AnimatedSection>
 
       {project.overview && (
-        <section className="rounded-lg bg-card p-4 text-card-foreground ring-1 ring-foreground/10 sm:p-6">
+        <AnimatedSection as="section" className="rounded-lg bg-card p-4 text-card-foreground ring-1 ring-foreground/10 sm:p-6">
           <h2 className="text-lg font-semibold">{t.overviewTitle}</h2>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{project.overview}</p>
-        </section>
+        </AnimatedSection>
       )}
 
       {project.features && project.features.length > 0 && (
-        <section className="rounded-lg bg-card p-4 text-card-foreground ring-1 ring-foreground/10 sm:p-6">
+        <AnimatedSection as="section" className="rounded-lg bg-card p-4 text-card-foreground ring-1 ring-foreground/10 sm:p-6">
           <h2 className="text-lg font-semibold">{t.featuresTitle}</h2>
           <ul className="mt-2 list-disc space-y-1.5 text-sm leading-relaxed text-muted-foreground ps-5">
             {project.features.map((feature) => (
               <li key={feature}>{feature}</li>
             ))}
           </ul>
-        </section>
+        </AnimatedSection>
       )}
 
       {project.techStack && project.techStack.length > 0 && (
-        <section className="rounded-lg bg-card p-4 text-card-foreground ring-1 ring-foreground/10 sm:p-6">
+        <AnimatedSection as="section" className="rounded-lg bg-card p-4 text-card-foreground ring-1 ring-foreground/10 sm:p-6">
           <h2 className="text-lg font-semibold">{t.techStackTitle}</h2>
           <div className="mt-2 flex flex-wrap gap-1.5">
             {project.techStack.map((tech) => (
               <Badge key={tech}>{tech}</Badge>
             ))}
           </div>
-        </section>
+        </AnimatedSection>
       )}
 
       {project.role && (
-        <section className="rounded-lg bg-card p-4 text-card-foreground ring-1 ring-foreground/10 sm:p-6">
+        <AnimatedSection as="section" className="rounded-lg bg-card p-4 text-card-foreground ring-1 ring-foreground/10 sm:p-6">
           <h2 className="text-lg font-semibold">{t.roleTitle}</h2>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{project.role}</p>
-        </section>
+        </AnimatedSection>
       )}
 
       {project.challenges && (
-        <section className="rounded-lg bg-card p-4 text-card-foreground ring-1 ring-foreground/10 sm:p-6">
+        <AnimatedSection as="section" className="rounded-lg bg-card p-4 text-card-foreground ring-1 ring-foreground/10 sm:p-6">
           <h2 className="text-lg font-semibold">{t.challengesTitle}</h2>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{project.challenges}</p>
-        </section>
+        </AnimatedSection>
       )}
 
       {project.gallery && project.gallery.length > 0 && (
-        <section className="rounded-lg bg-card p-4 text-card-foreground ring-1 ring-foreground/10 sm:p-6">
+        <AnimatedSection as="section" className="rounded-lg bg-card p-4 text-card-foreground ring-1 ring-foreground/10 sm:p-6">
           <h2 className="text-lg font-semibold">{t.galleryTitle}</h2>
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
             {project.gallery.map((src) => (
@@ -133,12 +134,13 @@ export function ProjectDetail({ slug }: { slug: string }) {
               />
             ))}
           </div>
-        </section>
+        </AnimatedSection>
       )}
 
+      <AnimatedSection className="rounded-lg bg-card p-4 text-card-foreground ring-1 ring-foreground/10">
       <nav
         aria-label="Project navigation"
-        className="flex items-center justify-between gap-3 rounded-lg bg-card p-4 text-card-foreground ring-1 ring-foreground/10"
+        className="flex items-center justify-between gap-3"
       >
         {prev ? (
           <Button render={<Link href={`/projects/${prev.slug}`} />} variant="ghost" size="sm">
@@ -161,6 +163,7 @@ export function ProjectDetail({ slug }: { slug: string }) {
           <span />
         )}
       </nav>
+      </AnimatedSection>
       <p className="sr-only">
         {t.prevProject} / {t.nextProject}
       </p>
