@@ -2,12 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { HugeiconsIcon as Icon } from "@hugeicons/react";
-import {
-  ExternalLinkIcon,
-  ArrowUpRightIcon,
-  Search01Icon,
-} from "@hugeicons/core-free-icons";
+import { ArrowUpRight, Export, Search } from "reicon-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -44,7 +39,7 @@ export function ProjectsList() {
     <div className="space-y-5">
       <div className="flex items-center gap-2">
         <span className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-border bg-muted text-muted-foreground">
-          <Icon icon={Search01Icon} className="size-4" />
+          <Search className="size-4" />
         </span>
         <Input
           value={query}
@@ -141,7 +136,7 @@ export function ProjectsList() {
                   size="sm"
                   className="-ms-2 text-primary hover:text-primary"
                 >
-                  <Icon icon={ArrowUpRightIcon} data-icon="inline-start" />
+                  <ArrowUpRight data-icon="inline-start" />
                   {t.viewDetails}
                 </Button>
                 {project.demo && (
@@ -151,7 +146,7 @@ export function ProjectsList() {
                     size="sm"
                     className="-ms-2 text-primary hover:text-primary"
                   >
-                    <Icon icon={ExternalLinkIcon} data-icon="inline-start" />
+                    <Export data-icon="inline-start" />
                     {t.viewDemo}
                   </Button>
                 )}
@@ -162,7 +157,7 @@ export function ProjectsList() {
                     size="sm"
                     className="-ms-2 text-primary hover:text-primary"
                   >
-                    <Icon icon={ArrowUpRightIcon} data-icon="inline-start" />
+                    <ArrowUpRight data-icon="inline-start" />
                     {t.viewRepo}
                   </Button>
                 )}

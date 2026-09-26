@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { HugeiconsIcon as Icon } from "@hugeicons/react";
-import { ArrowLeft01Icon } from "@hugeicons/core-free-icons";
+import { ArrowLeft } from "reicon-react";
 import { useI18n } from "@/components/providers/i18n-provider";
 
 const copy = {
@@ -25,7 +24,7 @@ export function ArchiveHeader({ section }: { section: keyof typeof copy }) {
         href="/"
         className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
       >
-        <Icon icon={ArrowLeft01Icon} className="size-4 rtl:rotate-180" />
+        <ArrowLeft className="size-4 rtl:rotate-180" />
         {t.backToHome}
       </Link>
       <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{t[titleKey]}</h1>

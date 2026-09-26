@@ -1,12 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { HugeiconsIcon as Icon } from "@hugeicons/react";
-import {
-  ArrowLeft01Icon,
-  ArrowUpRightIcon,
-  ExternalLinkIcon,
-} from "@hugeicons/core-free-icons";
+import { ArrowLeft, ArrowUpRight, Export } from "reicon-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/components/providers/i18n-provider";
@@ -24,7 +19,7 @@ export function ProjectDetail({ slug }: { slug: string }) {
         <h1 className="text-xl font-bold">{t.projectNotFound}</h1>
         <p className="mt-2 text-sm text-muted-foreground">{t.projectNotFoundLead}</p>
         <Button render={<Link href="/projects" />} className="mt-4">
-          <Icon icon={ArrowLeft01Icon} data-icon="inline-start" className="rtl:rotate-180" />
+          <ArrowLeft data-icon="inline-start" className="rtl:rotate-180" />
           {t.backToProjects}
         </Button>
       </div>
@@ -40,7 +35,7 @@ export function ProjectDetail({ slug }: { slug: string }) {
           href="/projects"
           className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
         >
-          <Icon icon={ArrowLeft01Icon} className="size-4 rtl:rotate-180" />
+          <ArrowLeft className="size-4 rtl:rotate-180" />
           {t.backToProjects}
         </Link>
       </nav>
@@ -59,7 +54,7 @@ export function ProjectDetail({ slug }: { slug: string }) {
           <div className="mt-4 flex flex-wrap gap-2">
             {project.demo && (
               <Button render={<a href={project.demo} target="_blank" rel="noopener noreferrer" />}>
-                <Icon icon={ExternalLinkIcon} data-icon="inline-start" />
+                <Export data-icon="inline-start" />
                 {t.viewDemo}
               </Button>
             )}
@@ -68,7 +63,7 @@ export function ProjectDetail({ slug }: { slug: string }) {
                 render={<a href={project.repo} target="_blank" rel="noopener noreferrer" />}
                 variant="outline"
               >
-                <Icon icon={ArrowUpRightIcon} data-icon="inline-start" />
+                <ArrowUpRight data-icon="inline-start" />
                 {t.viewRepo}
               </Button>
             )}
@@ -144,7 +139,7 @@ export function ProjectDetail({ slug }: { slug: string }) {
       >
         {prev ? (
           <Button render={<Link href={`/projects/${prev.slug}`} />} variant="ghost" size="sm">
-            <Icon icon={ArrowLeft01Icon} data-icon="inline-start" className="rtl:rotate-180" />
+            <ArrowLeft data-icon="inline-start" className="rtl:rotate-180" />
             <span className="max-w-32 truncate sm:max-w-none">{prev.title}</span>
           </Button>
         ) : (
@@ -153,8 +148,7 @@ export function ProjectDetail({ slug }: { slug: string }) {
         {next ? (
           <Button render={<Link href={`/projects/${next.slug}`} />} variant="ghost" size="sm">
             <span className="max-w-32 truncate sm:max-w-none">{next.title}</span>
-            <Icon
-              icon={ArrowLeft01Icon}
+            <ArrowLeft
               data-icon="inline-end"
               className="rotate-180 rtl:rotate-0"
             />

@@ -1,7 +1,6 @@
 "use client";
 
-import { HugeiconsIcon as Icon } from "@hugeicons/react";
-import { Briefcase01Icon, School01Icon } from "@hugeicons/core-free-icons";
+import { Book, Briefcase } from "reicon-react";
 import { SectionCard } from "@/components/shared/section-card";
 import { useI18n } from "@/components/providers/i18n-provider";
 import type { EducationItem, ExperienceItem } from "@/lib/types";
@@ -64,7 +63,7 @@ export function ExperienceSection() {
         {data.experience.map((item: ExperienceItem) => (
           <li key={`${item.company}-${item.period}`} className="first:pt-0 last:pb-0 pt-5 first:pb-5">
             <TimelineRow
-              mark={<Icon icon={Briefcase01Icon} className="size-5" />}
+              mark={<Briefcase className="size-5" />}
               title={item.role}
               subtitle={item.company}
               period={item.period}
@@ -87,7 +86,7 @@ export function EducationSection() {
         {data.education.map((item: EducationItem) => (
           <li key={`${item.school}-${item.period}`} className="first:pt-0 last:pb-0 pt-5 first:pb-5">
             <TimelineRow
-              mark={<Icon icon={School01Icon} className="size-5" />}
+              mark={<Book className="size-5" />}
               title={item.degree}
               subtitle={item.school}
               period={item.period}

@@ -1,12 +1,6 @@
 "use client";
 
-import { HugeiconsIcon as Icon } from "@hugeicons/react";
-import {
-  MapPinIcon,
-  Link01Icon,
-  Download01Icon,
-  Mail01Icon,
-} from "@hugeicons/core-free-icons";
+import { Download, Envelope, Link, Location } from "reicon-react";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { useDustSection } from "@/fx/use-dust-section";
@@ -68,7 +62,7 @@ export function ProfileHero() {
             </p>
             <p className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
               <span className="inline-flex items-center gap-1.5">
-                <Icon icon={MapPinIcon} className="size-4 shrink-0" />
+                <Location className="size-4 shrink-0" />
                 {profile.location}
               </span>
               <a
@@ -77,7 +71,7 @@ export function ProfileHero() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 font-medium text-primary hover:underline"
               >
-                <Icon icon={Link01Icon} className="size-4 shrink-0" />
+                <Link className="size-4 shrink-0" />
                 {profile.website}
               </a>
             </p>
@@ -86,7 +80,7 @@ export function ProfileHero() {
         {/* cta */}
         <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-border pt-4 sm:mt-6 sm:pt-5">
           <Button render={<a href="#contact" />} size="lg">
-            <Icon icon={Mail01Icon} data-icon="inline-start" />
+            <Envelope data-icon="inline-start" />
             {t.contactMe}
           </Button>
           <Button
@@ -94,7 +88,7 @@ export function ProfileHero() {
             variant="outline"
             size="lg"
           >
-            <Icon icon={Download01Icon} data-icon="inline-start" />
+            <Download data-icon="inline-start" />
             {t.downloadCv}
           </Button>
         </div>

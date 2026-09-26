@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { HugeiconsIcon as Icon } from "@hugeicons/react";
-import { Certificate01Icon, ExternalLinkIcon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
+import { ArrowRight, AwardCertificate, Export } from "reicon-react";
 import { SectionCard } from "@/components/shared/section-card";
 import { AnimatedSection } from "@/fx/animated-section";
 import { Button } from "@/components/ui/button";
@@ -25,7 +24,7 @@ export function CertificatesSection() {
           className="-me-2 text-primary hover:text-primary"
         >
           {t.viewAll}
-          <Icon icon={ArrowRight01Icon} data-icon="inline-end" className="rtl:rotate-180" />
+          <ArrowRight data-icon="inline-end" className="rtl:rotate-180" />
         </Button>
       }
     >
@@ -39,7 +38,7 @@ export function CertificatesSection() {
             className="flex items-start gap-3 py-4 first:pt-0 last:pb-0"
           >
             <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-border bg-muted text-muted-foreground">
-              <Icon icon={Certificate01Icon} className="size-5" />
+              <AwardCertificate className="size-5" />
             </span>
             <div className="min-w-0 flex-1">
               <div className="flex flex-col gap-0.5 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
@@ -59,7 +58,7 @@ export function CertificatesSection() {
                   className="mt-1.5 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
                 >
                   {t.verify}
-                  <Icon icon={ExternalLinkIcon} className="size-3.5" />
+                  <Export className="size-3.5" />
                 </a>
               )}
             </div>

@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { HugeiconsIcon as Icon } from "@hugeicons/react";
-import { SendIcon } from "@hugeicons/core-free-icons";
+import { Send } from "reicon-react";
 import { SectionCard } from "@/components/shared/section-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -124,7 +123,7 @@ export function ContactSection() {
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-muted-foreground">{t.sendingNote}</p>
           <Button type="submit" size="lg" className="self-start sm:self-auto">
-            <Icon icon={SendIcon} data-icon="inline-start" />
+            <Send data-icon="inline-start" />
             {t.sendButton}
           </Button>
         </div>

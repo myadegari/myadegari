@@ -1,12 +1,6 @@
 "use client";
 
-import { HugeiconsIcon as Icon } from "@hugeicons/react";
-import {
-  Mail01Icon,
-  PhoneIcon,
-  Link01Icon,
-  LanguageSquareIcon,
-} from "@hugeicons/core-free-icons";
+import { Envelope, Language, Link, Phone } from "reicon-react";
 import { SectionCard } from "@/components/shared/section-card";
 import { Badge } from "@/components/ui/badge";
 import { useI18n } from "@/components/providers/i18n-provider";
@@ -16,7 +10,7 @@ export function RightRail() {
   const { profile } = data;
 
   return (
-    <aside className="space-y-6 lg:sticky lg:top-36" aria-label="Profile details">
+    <aside className="space-y-6 lg:sticky lg:top-20" aria-label="Profile details">
       <SectionCard id="quick-contact" title={t.quickContactTitle} dustExit="stayOnDesktop">
         <ul className="space-y-3 text-sm">
           <li>
@@ -24,12 +18,12 @@ export function RightRail() {
               href={`mailto:${profile.email}`}
               className="flex items-center gap-2.5 text-primary hover:underline"
             >
-              <Icon icon={Mail01Icon} className="size-4 shrink-0 text-muted-foreground" />
+              <Envelope className="size-4 shrink-0 text-muted-foreground" />
               <span className="min-w-0 truncate">{profile.email}</span>
             </a>
           </li>
           <li className="flex items-center gap-2.5 text-muted-foreground">
-            <Icon icon={PhoneIcon} className="size-4 shrink-0" />
+            <Phone className="size-4 shrink-0" />
             <span dir="ltr">{profile.phone}</span>
           </li>
           <li>
@@ -39,7 +33,7 @@ export function RightRail() {
               rel="noopener noreferrer"
               className="flex items-center gap-2.5 text-primary hover:underline"
             >
-              <Icon icon={Link01Icon} className="size-4 shrink-0 text-muted-foreground" />
+              <Link className="size-4 shrink-0 text-muted-foreground" />
               <span className="min-w-0 truncate">{profile.website}</span>
             </a>
           </li>
@@ -60,8 +54,7 @@ export function RightRail() {
         <ul className="space-y-2.5 text-sm text-foreground/90">
           {profile.languages.map((language) => (
             <li key={language} className="flex items-center gap-2.5">
-              <Icon
-                icon={LanguageSquareIcon}
+              <Language
                 className="size-4 shrink-0 text-muted-foreground"
               />
               {language}

@@ -1,7 +1,9 @@
 "use client";
 
+// reicon-react ships no brand marks, so GitHub/LinkedIn stay on Hugeicons.
 import { HugeiconsIcon as Icon } from "@hugeicons/react";
-import { GithubIcon, LinkedinIcon, GlobeIcon } from "@hugeicons/core-free-icons";
+import { GithubIcon, LinkedinIcon } from "@hugeicons/core-free-icons";
+import { Globe } from "reicon-react";
 import { useI18n } from "@/components/providers/i18n-provider";
 
 export function SiteFooter() {
@@ -41,7 +43,7 @@ export function SiteFooter() {
             className="text-muted-foreground transition-colors hover:text-primary"
             aria-label={t.website}
           >
-            <Icon icon={GlobeIcon} />
+            <Globe />
           </a>
         </div>
       </div>

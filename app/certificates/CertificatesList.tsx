@@ -1,12 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { HugeiconsIcon as Icon } from "@hugeicons/react";
-import {
-  Certificate01Icon,
-  ExternalLinkIcon,
-  Search01Icon,
-} from "@hugeicons/core-free-icons";
+import { AwardCertificate, Export, Search } from "reicon-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { AnimatedSection } from "@/fx/animated-section";
@@ -41,7 +36,7 @@ export function CertificatesList() {
     <div className="space-y-5">
       <div className="flex items-center gap-2">
         <span className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-border bg-muted text-muted-foreground">
-          <Icon icon={Search01Icon} className="size-4" />
+          <Search className="size-4" />
         </span>
         <Input
           value={query}
@@ -116,7 +111,7 @@ export function CertificatesList() {
               className="flex items-start gap-3 py-4 first:pt-0 last:pb-0"
             >
               <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-border bg-muted text-muted-foreground">
-                <Icon icon={Certificate01Icon} className="size-5" />
+                <AwardCertificate className="size-5" />
               </span>
               <div className="min-w-0 flex-1">
                 <div className="flex flex-col gap-0.5 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
@@ -136,7 +131,7 @@ export function CertificatesList() {
                     className="mt-1.5 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
                   >
                     {t.verify}
-                    <Icon icon={ExternalLinkIcon} className="size-3.5" />
+                    <Export className="size-3.5" />
                   </a>
                 )}
               </div>

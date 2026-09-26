@@ -2,8 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { HugeiconsIcon as Icon } from "@hugeicons/react";
-import { ExternalLinkIcon, ArrowUpRightIcon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
+import { ArrowRight, ArrowUpRight, Export } from "reicon-react";
 import { SectionCard } from "@/components/shared/section-card";
 import { AnimatedSection } from "@/fx/animated-section";
 import { Badge } from "@/components/ui/badge";
@@ -39,7 +38,7 @@ export function ProjectsSection() {
           className="-me-2 text-primary hover:text-primary"
         >
           {t.viewAll}
-          <Icon icon={ArrowRight01Icon} data-icon="inline-end" className="rtl:rotate-180" />
+          <ArrowRight data-icon="inline-end" className="rtl:rotate-180" />
         </Button>
       }
     >
@@ -109,7 +108,7 @@ export function ProjectsSection() {
                 size="sm"
                 className="-ms-2 text-primary hover:text-primary"
               >
-                <Icon icon={ArrowUpRightIcon} data-icon="inline-start" />
+                <ArrowUpRight data-icon="inline-start" />
                 {t.viewDetails}
               </Button>
                 {project.demo && (
@@ -119,7 +118,7 @@ export function ProjectsSection() {
                     size="sm"
                     className="-ms-2 text-primary hover:text-primary"
                   >
-                    <Icon icon={ExternalLinkIcon} data-icon="inline-start" />
+                    <Export data-icon="inline-start" />
                     {t.viewDemo}
                   </Button>
                 )}
@@ -130,7 +129,7 @@ export function ProjectsSection() {
                     size="sm"
                     className="-ms-2 text-primary hover:text-primary"
                   >
-                    <Icon icon={ArrowUpRightIcon} data-icon="inline-start" />
+                    <ArrowUpRight data-icon="inline-start" />
                     {t.viewRepo}
                   </Button>
                 )}

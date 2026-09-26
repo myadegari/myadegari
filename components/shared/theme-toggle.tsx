@@ -1,7 +1,6 @@
 "use client";
 
-import { HugeiconsIcon as Icon } from "@hugeicons/react";
-import { Moon01Icon, Sun01Icon } from "@hugeicons/core-free-icons";
+import { Moon, Sun } from "reicon-react";
 import type { MouseEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/providers/theme-provider";
@@ -25,7 +24,7 @@ export function ThemeToggle() {
       aria-label={theme === "dark" ? t.themeLight : t.themeDark}
       title={theme === "dark" ? t.themeLight : t.themeDark}
     >
-      <Icon icon={theme === "dark" ? Sun01Icon : Moon01Icon} />
+      {theme === "dark" ? <Sun /> : <Moon />}
     </Button>
   );
 }

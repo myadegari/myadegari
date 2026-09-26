@@ -1,7 +1,6 @@
 "use client";
 
-import { HugeiconsIcon as Icon } from "@hugeicons/react";
-import { LanguageSquareIcon } from "@hugeicons/core-free-icons";
+import { Language } from "reicon-react";
 import type { MouseEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/components/providers/i18n-provider";
@@ -26,7 +25,7 @@ export function LanguageToggle() {
       title={lang === "en" ? t.switchToFa : t.switchToEn}
       className="flex items-center justify-center"
     >
-      <Icon icon={LanguageSquareIcon} />
+      <Language />
       <span className="lang-label mt-1 inline-block overflow-hidden leading-none">
         {lang === "en" ? "FA" : "EN"}
       </span>
