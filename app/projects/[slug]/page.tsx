@@ -28,7 +28,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   return (
     <>
-      <SiteHeader />
+      {/* <SiteHeader /> */}
       <div className="flex-1">
         <div className="mx-auto max-w-5xl px-4 py-6">
           <ProjectDetail slug={slug} />

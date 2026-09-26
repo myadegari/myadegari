@@ -56,7 +56,7 @@ export function SquishName({
 
       // English sweeps left→right, Persian right→left. In RTL the first DOM
       // unit is the rightmost one, so "start" already means right→left there.
-      const isRTL = document.documentElement.dir === "rtl";
+      // const isRTL = document.documentElement.dir === "rtl";
       const sweepFrom: number =
         (split === "chars")  ? 0.02 : 0.1;
 

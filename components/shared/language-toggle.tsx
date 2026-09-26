@@ -16,9 +16,10 @@ export function LanguageToggle() {
       onClick={toggleLang}
       aria-label={lang === "en" ? t.switchToFa : t.switchToEn}
       title={lang === "en" ? t.switchToFa : t.switchToEn}
+      className="flex items-center justify-center"
     >
       <Icon icon={LanguageSquareIcon} />
-      <span>{lang === "en" ? "FA" : "EN"}</span>
+      <span className="mt-1">{lang === "en" ? "FA" : "EN"}</span>
     </Button>
   );
 }

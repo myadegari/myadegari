@@ -270,3 +270,199 @@
     will-change: auto;
   }
 }
+
+/* Direction-aware theme transition: fullscreen wipe + flash.
+   Light -> dark wipes top-to-bottom (cool flash), dark -> light wipes
+   bottom-to-top (warm flash). View Transitions path below; the GSAP
+   fallback overlay (.theme-wipe-veil / .theme-wipe-flash) is created
+   dynamically in fx/theme-transition.ts. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html[data-theme-direction="to-dark"]::view-transition-new(root) {
+  animation:
+    theme-wipe-to-dark 0.5s cubic-bezier(0.32, 0.72, 0, 1) both,
+    theme-flash-cool 0.6s ease-out both;
+}
+
+html[data-theme-direction="to-light"]::view-transition-new(root) {
+  animation:
+    theme-wipe-to-light 0.5s cubic-bezier(0.32, 0.72, 0, 1) both,
+    theme-flash-warm 0.6s ease-out both;
+}
+
+@keyframes theme-wipe-to-dark {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes theme-wipe-to-light {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes theme-flash-cool {
+  0% {
+    filter: brightness(1);
+  }
+  55% {
+    filter: brightness(1.28) saturate(1.2);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+
+@keyframes theme-flash-warm {
+  0% {
+    filter: brightness(1);
+  }
+  55% {
+    filter: brightness(1.22) sepia(0.25);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+
+.theme-wipe-veil,
+.theme-wipe-flash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.theme-wipe-flash {
+  opacity: 0;
+}
+
+/* Toggle icon spin while the transition runs (direction-aware). */
+.theme-animating svg {
+  transform-origin: center;
+}
+
+.theme-animating.to-dark svg {
+  animation: theme-icon-spin-cw 0.6s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.theme-animating.to-light svg {
+  animation: theme-icon-spin-ccw 0.6s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@keyframes theme-icon-spin-cw {
+  from {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(90deg) scale(0.7);
+  }
+  to {
+    transform: rotate(180deg) scale(1);
+  }
+}
+
+@keyframes theme-icon-spin-ccw {
+  from {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(-90deg) scale(0.7);
+  }
+  to {
+    transform: rotate(-180deg) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme-direction]::view-transition-old(root),
+  html[data-theme-direction]::view-transition-new(root) {
+    animation: none !important;
+  }
+  .theme-wipe-veil,
+  .theme-wipe-flash {
+    display: none !important;
+  }
+  .theme-animating svg {
+    animation: none !important;
+  }
+}
+
+/* 3D ASCII David banner: stage, backdrop wash, vignette + film grain.
+   The WebGL canvas is transparent; the card background shows through
+   the letterboxed relief (full statue, never cropped). */
+.david-stage {
+  background-color: var(--card);
+}
+
+.david-backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      120% 90% at 50% 10%,
+      color-mix(in oklch, var(--primary) 14%, transparent) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      100% 100% at 50% 110%,
+      color-mix(in oklch, var(--foreground) 8%, transparent) 0%,
+      transparent 60%
+    );
+}
+
+.david-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.david-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    115% 100% at 50% 45%,
+    transparent 55%,
+    rgb(0 0 0 / 38%) 100%
+  );
+}
+
+.david-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.1;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.9'/%3E%3C/svg%3E");
+}
+
+.david-loading,
+.david-fallback-wash {
+  background:
+    radial-gradient(
+      120% 90% at 50% 10%,
+      color-mix(in oklch, var(--primary) 14%, transparent) 0%,
+      transparent 55%
+    ),
+    var(--secondary);
+}
+
+.david-loading {
+  position: absolute;
+  inset: 0;
+}

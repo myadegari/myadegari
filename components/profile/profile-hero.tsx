@@ -11,8 +11,23 @@ import { Button } from "@/components/ui/button";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { useDustSection } from "@/fx/use-dust-section";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import ProfileImage from "../../public/profile.jpg";
 import { cn } from "@/lib/utils";
+
+const DavidAsciiBanner = dynamic(
+  () =>
+    import("./david-ascii-banner").then((m) => m.DavidAsciiBanner),
+  {
+    ssr: false,
+    loading: () => (
+      <div
+        className="david-fallback-wash h-64 sm:h-80"
+        aria-hidden="true"
+      />
+    ),
+  }
+);
 
 export function ProfileHero() {
   const { t, data } = useI18n();
@@ -25,11 +40,7 @@ export function ProfileHero() {
       id="top"
       className="overflow-hidden rounded-lg bg-card text-card-foreground ring-1 ring-foreground/10"
     >
-      <div className="relative bg-secondary h-36 sm:h-48 overflow-hidden" aria-hidden="true" >
-        <div className=" absolute top-0 left-0 bg-card/15 backdrop-blur-3xl w-full h-full"/>
-
-        <Image src={ProfileImage} alt="Profile image" className=" object-cover w-full"/>
-        </div>
+      <DavidAsciiBanner className="h-64 sm:h-80" />
       <div className="relative px-4 pb-5 sm:px-6 sm:pb-6 mt-20">
         <div className="-mt-12 flex flex-col gap-4 sm:-mt-14 sm:flex-row sm:items-end sm:justify-between">
           <div className="mt-22 flex flex-col gap-3 sm:flex-row sm:items-end sm:gap-5">
