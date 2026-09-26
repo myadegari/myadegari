@@ -26,7 +26,7 @@ function TimelineRow({
   title: string;
   subtitle: string;
   period: string;
-  location: string;
+  location?: string;
   bullets?: string[];
 }) {
   return (
@@ -40,7 +40,7 @@ function TimelineRow({
           </div>
           <div className="shrink-0 text-sm text-muted-foreground sm:text-end">
             <p>{period}</p>
-            <p className="text-xs">{location}</p>
+            {location && <p className="text-xs">{location}</p>}
           </div>
         </div>
         {bullets && bullets.length > 0 && (
@@ -91,8 +91,7 @@ export function EducationSection() {
               title={item.degree}
               subtitle={item.school}
               period={item.period}
-              location={item.detail ?? ""}
-              bullets={item.detail ? [item.detail] : undefined}
+              bullets={item.bullets}
             />
           </li>
         ))}

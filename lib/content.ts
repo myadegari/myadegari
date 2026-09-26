@@ -63,21 +63,20 @@ const en: PortfolioContent = {
   education: [
     {
       school: "University of Tehran",
-      degree: "B.Sc. Computer Science",
-      period: "2014 - 2018",
-      detail: "Graduated with honors; focus on human-computer interaction.",
+      degree: "M.Sc. Computer Engineering (Computer Systems Architecture)",
+      period: "2020 - 2023",
+      bullets: [
+        "GPA: 3.88. Defended with an excellent grade.",
+        "Thesis: Voice Direction Detection Using Deep Convolutional Neural Network on A Smartphone.",
+      ],
     },
     {
-      school: "Sharif University of Technology",
-      degree: "Software Engineering Summer School",
-      period: "2017",
-      detail: "Intensive program on modern web architecture.",
-    },
-    {
-      school: "Online Learning",
-      degree: "Continuous education",
-      period: "2018 - Present",
-      detail: "Advanced React patterns, accessibility, and design systems.",
+      school: "Shahid Bahnar University of Kerman",
+      degree: "B.Sc. Electrical Engineering (Power)",
+      period: "2015 - 2019",
+      bullets: [
+        "Bachelor's project: Fault localization in power grids with distributed generation.",
+      ],
     },
   ],
   projects: [
@@ -314,21 +313,20 @@ const fa: PortfolioContent = {
   education: [
     {
       school: "دانشگاه تهران",
-      degree: "کارشناسی علوم کامپیوتر",
-      period: "۲۰۱۴ - ۲۰۱۸",
-      detail: "فارغ‌التحصیل با نمره عالی؛ تمرکز بر تعامل انسان و رایانه.",
+      degree: "کارشناسی ارشد مهندسی کامپیوتر (معماری سیستم‌های کامپیوتری)",
+      period: "۲۰۲۰ - ۲۰۲۳",
+      bullets: [
+        "معدل: ۱۸.۴۰. دفاع با درجه عالی.",
+        "پایان‌نامه: تشخیص جهت منبع صوت با استفاده از شبکه عصبی پیچشی عمیق در تلفن هوشمند.",
+      ],
     },
     {
-      school: "دانشگاه صنعتی شریف",
-      degree: "دوره تابستانه مهندسی نرم‌افزار",
-      period: "۲۰۱۷",
-      detail: "برنامه فشرده درباره معماری مدرن وب.",
-    },
-    {
-      school: "یادگیری آنلاین",
-      degree: "آموزش مستمر",
-      period: "۲۰۱۸ - تاکنون",
-      detail: "الگوهای پیشرفته ری‌اکت، دسترس‌پذیری و سیستم‌های طراحی.",
+      school: "دانشگاه شهید باهنر کرمان",
+      degree: "کارشناسی مهندسی برق (قدرت)",
+      period: "۲۰۱۵ - ۲۰۱۹",
+      bullets: [
+        "پروژه کارشناسی: مکان‌یابی خطا در شبکه برق با تولید پراکنده.",
+      ],
     },
   ],
   projects: [

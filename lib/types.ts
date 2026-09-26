@@ -12,7 +12,7 @@ export interface EducationItem {
   school: string;
   degree: string;
   period: string;
-  detail?: string;
+  bullets?: string[];
 }
 
 export interface ProjectItem {

@@ -398,6 +398,113 @@ html[data-theme-direction="to-light"]::view-transition-new(root) {
   .theme-animating svg {
     animation: none !important;
   }
+  html[data-lang-anim]::view-transition-old(root),
+  html[data-lang-anim]::view-transition-new(root) {
+    animation: none !important;
+  }
+  .lang-veil {
+    display: none !important;
+  }
+  .lang-animating .lang-label,
+  .lang-animating svg {
+    animation: none !important;
+  }
+}
+
+/* Language transition: defocus out, swap, focus back in.
+   The old snapshot blurs and fades away, the language flips underneath, then
+   the new snapshot resolves from blurred to sharp. No directional drift - the
+   effect is a pure focus pull.
+
+   The base reset above (old/new root: animation none, mix-blend-mode normal)
+   already stops the default cross-fade, so both snapshots are animated
+   explicitly here. --lang-haze-blur is written from fx/lang-transition.ts and
+   collapses to 0 on low-quality devices, keeping the opacity fade only.
+
+   View Transitions path below; the GSAP fallback veil (.lang-veil) is created
+   dynamically in fx/lang-transition.ts. */
+html[data-lang-anim]::view-transition-old(root) {
+  animation: lang-defocus-out 0.4s cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+html[data-lang-anim]::view-transition-new(root) {
+  animation: lang-focus-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+}
+
+@keyframes lang-defocus-out {
+  from {
+    opacity: 1;
+    filter: blur(0);
+  }
+  to {
+    opacity: 0;
+    filter: blur(var(--lang-haze-blur, 10px));
+  }
+}
+
+@keyframes lang-focus-in {
+  from {
+    opacity: 0;
+    filter: blur(var(--lang-haze-blur, 10px));
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+/* GSAP fallback veil. Its backdrop-filter supplies the defocus so nothing has
+   to be blurred on the live DOM. */
+.lang-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  will-change: opacity;
+}
+
+/* Toggle label + icon roll while the transition runs.
+   Timed to the full 1.1s defocus-out + focus-in cycle above. */
+.lang-animating .lang-label {
+  animation: lang-label-roll 1.1s cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+.lang-animating svg {
+  animation: lang-icon-roll 1.1s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@keyframes lang-label-roll {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  40% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes lang-icon-roll {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(0.7);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
 }
 
 /* 3D ASCII David banner: stage, backdrop wash, vignette + film grain.

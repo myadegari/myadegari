@@ -5,7 +5,6 @@ import {
   Mail01Icon,
   PhoneIcon,
   Link01Icon,
-  Briefcase01Icon,
   LanguageSquareIcon,
 } from "@hugeicons/core-free-icons";
 import { SectionCard } from "@/components/shared/section-card";
@@ -35,7 +34,7 @@ export function RightRail() {
           </li>
           <li>
             <a
-              href={profile.website}
+              href={`https://${profile.website}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2.5 text-primary hover:underline"
@@ -66,23 +65,6 @@ export function RightRail() {
                 className="size-4 shrink-0 text-muted-foreground"
               />
               {language}
-            </li>
-          ))}
-        </ul>
-      </SectionCard>
-
-      <SectionCard id="rail-education" title={t.educationTitle} dustExit="stayOnDesktop">
-        <ul className="space-y-3 text-sm">
-          {data.education.slice(0, 2).map((item) => (
-            <li key={`${item.school}-${item.period}`} className="flex gap-2.5">
-              <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-border bg-muted text-muted-foreground">
-                <Icon icon={Briefcase01Icon} className="size-4" />
-              </span>
-              <div className="min-w-0">
-                <p className="font-medium">{item.school}</p>
-                <p className="text-muted-foreground">{item.degree}</p>
-                <p className="text-xs text-muted-foreground">{item.period}</p>
-              </div>
             </li>
           ))}
         </ul>
