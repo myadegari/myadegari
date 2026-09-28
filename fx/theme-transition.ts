@@ -1,7 +1,5 @@
 "use client";
 
-import type { MouseEvent } from "react";
-
 export type ThemeDirection = "to-dark" | "to-light";
 
 interface AnimatedToggleOptions {
@@ -19,20 +17,8 @@ function prefersReducedMotion(): boolean {
   }
 }
 
-function markButton(button: HTMLElement | null, direction: ThemeDirection) {
-  button?.classList.add("theme-animating", direction);
-}
-
-function unmarkButton(button: HTMLElement | null, direction: ThemeDirection) {
-  button?.classList.remove("theme-animating", direction);
-}
-
 /** GSAP fallback: a solid veil sweeps across, theme swaps at full cover. */
-async function gsapWipe(
-  button: HTMLElement | null,
-  direction: ThemeDirection,
-  toggleTheme: () => void
-) {
+async function gsapWipe(direction: ThemeDirection, toggleTheme: () => void) {
   const { gsap } = await import("gsap");
   const toDark = direction === "to-dark";
 
@@ -69,24 +55,20 @@ async function gsapWipe(
   } finally {
     veil.remove();
     flash.remove();
-    unmarkButton(button, direction);
     inFlight = false;
   }
 }
 
 /**
  * Direction-aware theme transition.
- * - Light -> dark: veil wipes top-to-bottom, cool flash, icon spins clockwise.
- * - Dark -> light: veil wipes bottom-to-top, warm flash, icon spins counter-clockwise.
+ * - Light -> dark: veil wipes top-to-bottom with a cool flash.
+ * - Dark -> light: veil wipes bottom-to-top with a warm flash.
  * Uses the View Transitions API where available, GSAP overlay elsewhere.
+ * The toggle icon morph is owned by morphicons in theme-toggle.tsx.
  * Reduced motion (or a running transition) falls back to an instant swap.
  */
-export function animatedThemeToggle(
-  event: MouseEvent<HTMLElement>,
-  { theme, toggleTheme }: AnimatedToggleOptions
-) {
+export function animatedThemeToggle({ theme, toggleTheme }: AnimatedToggleOptions) {
   const direction: ThemeDirection = theme === "light" ? "to-dark" : "to-light";
-  const button = event.currentTarget as HTMLElement | null;
 
   if (inFlight || prefersReducedMotion()) {
     toggleTheme();
@@ -96,7 +78,6 @@ export function animatedThemeToggle(
   const startViewTransition = document.startViewTransition?.bind(document);
   if (startViewTransition) {
     inFlight = true;
-    markButton(button, direction);
     const root = document.documentElement;
     root.dataset.themeDirection = direction;
     try {
@@ -104,7 +85,6 @@ export function animatedThemeToggle(
       // Safety net: always clean up even if the transition promise never settles.
       const safety = window.setTimeout(() => {
         delete root.dataset.themeDirection;
-        unmarkButton(button, direction);
         inFlight = false;
       }, 900);
       void transition.finished
@@ -112,12 +92,10 @@ export function animatedThemeToggle(
         .finally(() => {
           window.clearTimeout(safety);
           delete root.dataset.themeDirection;
-          unmarkButton(button, direction);
           inFlight = false;
         });
     } catch {
       delete root.dataset.themeDirection;
-      unmarkButton(button, direction);
       inFlight = false;
       toggleTheme();
     }
@@ -125,10 +103,8 @@ export function animatedThemeToggle(
   }
 
   inFlight = true;
-  markButton(button, direction);
-  void gsapWipe(button, direction, toggleTheme).catch(() => {
+  void gsapWipe(direction, toggleTheme).catch(() => {
     toggleTheme();
-    unmarkButton(button, direction);
     inFlight = false;
   });
 }

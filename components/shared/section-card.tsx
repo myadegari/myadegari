@@ -19,7 +19,7 @@ export function SectionCard({ id, title, action, children, className, dustExit =
       ref={ref}
       id={id}
       className={cn(
-        "scroll-mt-36 rounded-lg bg-card text-card-foreground ring-1 ring-foreground/10",
+        "scroll-mt-24 rounded-lg bg-card text-card-foreground ring-1 ring-foreground/10",
         className
       )}
     >

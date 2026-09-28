@@ -1,5 +1,4 @@
 import { SiteHeader } from "@/components/layout/site-header";
-import { SectionNav } from "@/components/layout/section-nav";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { ProfileHero } from "@/components/profile/profile-hero";
 import { AboutSection } from "@/components/profile/about-section";
@@ -16,9 +15,6 @@ export default function Home() {
       <div className="flex-1">
         <div className="mx-auto max-w-5xl px-4 py-6">
           <ProfileHero />
-          <div className="mt-4">
-            <SectionNav />
-          </div>
           <div className="mt-6 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_300px]">
             <main className="min-w-0 space-y-6">
               <AboutSection />
