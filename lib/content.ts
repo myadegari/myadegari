@@ -1,4 +1,5 @@
 import type { Lang, PortfolioContent } from "@/lib/types";
+import { certificates } from "@/lib/certificates";
 
 const en: PortfolioContent = {
   profile: {
@@ -12,7 +13,7 @@ const en: PortfolioContent = {
     email: "mehdi@example.com",
     phone: "+98 912 000 0000",
     website: "mehdiyadegari.dev",
-    linkedin: "https://www.linkedin.com/in/mehdiyadegari",
+    linkedin: "https://www.linkedin.com/in/mohammadmehdiyadegarifard",
     github: "https://github.com/mehdiyadegari",
     skills: [
       "React",
@@ -211,43 +212,7 @@ const en: PortfolioContent = {
       gallery: [],
     },
   ],
-  certificates: [
-    {
-      name: "Meta Front-End Developer Professional Certificate",
-      issuer: "Coursera / Meta",
-      date: "2023",
-      link: "https://example.com/verify/meta-frontend",
-    },
-    {
-      name: "AWS Certified Cloud Practitioner",
-      issuer: "Amazon Web Services",
-      date: "2022",
-      link: "https://example.com/verify/aws-clf",
-    },
-    {
-      name: "Web Accessibility Specialist",
-      issuer: "Deque University",
-      date: "2023",
-      link: "https://example.com/verify/deque-was",
-    },
-    {
-      name: "Advanced TypeScript",
-      issuer: "Frontend Masters",
-      date: "2021",
-      link: "https://example.com/verify/fem-ts",
-    },
-    {
-      name: "FastAPI Authentication",
-      issuer: "TestDriven.io",
-      date: "2023",
-      link: "https://example.com/verify/fastapi-auth",
-    },
-    {
-      name: "Google Mobile Web Specialist",
-      issuer: "Google Developers",
-      date: "2020",
-    },
-  ],
+  certificates,
 };
 
 const fa: PortfolioContent = {
@@ -262,7 +227,7 @@ const fa: PortfolioContent = {
     email: "mehdi@example.com",
     phone: "+98 912 000 0000",
     website: "mehdiyadegari.dev",
-    linkedin: "https://www.linkedin.com/in/mehdiyadegari",
+    linkedin: "https://www.linkedin.com/in/mohammadmehdiyadegarifard",
     github: "https://github.com/mehdiyadegari",
     skills: [
       "ری‌اکت",
@@ -460,43 +425,7 @@ const fa: PortfolioContent = {
       gallery: [],
     },
   ],
-  certificates: [
-    {
-      name: "گواهی حرفه‌ای توسعه‌دهنده فرانت‌اند متا",
-      issuer: "کورسرا / متا",
-      date: "۲۰۲۳",
-      link: "https://example.com/verify/meta-frontend",
-    },
-    {
-      name: "گواهی AWS توانمندی ابری سطح پایه",
-      issuer: "آمازون وب سرویس",
-      date: "۲۰۲۲",
-      link: "https://example.com/verify/aws-clf",
-    },
-    {
-      name: "متخصص دسترس‌پذیری وب",
-      issuer: "Deque University",
-      date: "۲۰۲۳",
-      link: "https://example.com/verify/deque-was",
-    },
-    {
-      name: "تایپ‌اسکریپت پیشرفته",
-      issuer: "Frontend Masters",
-      date: "۲۰۲۱",
-      link: "https://example.com/verify/fem-ts",
-    },
-    {
-      name: "احراز هویت در فست‌اپی",
-      issuer: "TestDriven.io",
-      date: "۲۰۲۳",
-      link: "https://example.com/verify/fastapi-auth",
-    },
-    {
-      name: "متخصص وب موبایل گوگل",
-      issuer: "Google Developers",
-      date: "۲۰۲۰",
-    },
-  ],
+  certificates,
 };
 
 export const content: Record<Lang, PortfolioContent> = { en, fa };

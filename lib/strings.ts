@@ -68,6 +68,8 @@ export interface UiStrings {
   prevProject: string;
   nextProject: string;
   showingCount: string;
+  credentialId: string;
+  credlyProfile: string;
 }
 
 const en: UiStrings = {
@@ -139,6 +141,8 @@ const en: UiStrings = {
   prevProject: "Previous project",
   nextProject: "Next project",
   showingCount: "Showing",
+  credentialId: "Credential ID",
+  credlyProfile: "Credly profile",
 };
 
 const fa: UiStrings = {
@@ -210,6 +214,8 @@ const fa: UiStrings = {
   prevProject: "پروژه قبلی",
   nextProject: "پروژه بعدی",
   showingCount: "نمایش",
+  credentialId: "شناسه گواهی",
+  credlyProfile: "پروفایل Credly",
 };
 
 export const strings: Record<Lang, UiStrings> = { en, fa };

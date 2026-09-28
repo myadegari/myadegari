@@ -1,9 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AwardCertificate, Export, Search } from "reicon-react";
+import { Export, Search } from "reicon-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { IssuerLogo } from "@/components/shared/issuer-logo";
 import { AnimatedSection } from "@/fx/animated-section";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { cn } from "@/lib/utils";
@@ -27,7 +28,8 @@ export function CertificatesList() {
       return (
         c.name.toLowerCase().includes(q) ||
         c.issuer.toLowerCase().includes(q) ||
-        c.date.toLowerCase().includes(q)
+        c.date.toLowerCase().includes(q) ||
+        (c.credentialId?.toLowerCase().includes(q) ?? false)
       );
     });
   }, [data.certificates, query, activeIssuer]);
@@ -105,14 +107,12 @@ export function CertificatesList() {
           {filtered.map((item, index) => (
             <AnimatedSection
               as="li"
-              key={`${item.name}-${item.issuer}-${item.date}`}
+              key={`${item.name}-${item.issuer}-${item.date}-${item.credentialId ?? ""}`}
               delay={Math.min(index * 0.05, 0.3)}
               burstScale={0.5}
               className="flex items-start gap-3 py-4 first:pt-0 last:pb-0"
             >
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-border bg-muted text-muted-foreground">
-                <AwardCertificate className="size-5" />
-              </span>
+              <IssuerLogo issuer={item.issuer} />
               <div className="min-w-0 flex-1">
                 <div className="flex flex-col gap-0.5 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
                   <div className="min-w-0">
@@ -123,6 +123,15 @@ export function CertificatesList() {
                     {item.date}
                   </span>
                 </div>
+                {item.credentialId && (
+                  <p
+                    dir="ltr"
+                    className="mt-1 break-all text-xs text-muted-foreground/80"
+                  >
+                    <span className="font-sans">{t.credentialId}:</span>{" "}
+                    <span className="font-mono">{item.credentialId}</span>
+                  </p>
+                )}
                 {item.link && (
                   <a
                     href={item.link}

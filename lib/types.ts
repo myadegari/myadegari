@@ -35,6 +35,7 @@ export interface CertificateItem {
   issuer: string;
   date: string;
   link?: string;
+  credentialId?: string;
 }
 
 export interface ProfileInfo {

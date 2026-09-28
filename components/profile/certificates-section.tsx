@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, AwardCertificate, Export } from "reicon-react";
+import { ArrowRight, Export } from "reicon-react";
 import { SectionCard } from "@/components/shared/section-card";
+import { IssuerLogo } from "@/components/shared/issuer-logo";
 import { AnimatedSection } from "@/fx/animated-section";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/components/providers/i18n-provider";
@@ -32,14 +33,12 @@ export function CertificatesSection() {
         {preview.map((item: CertificateItem, index: number) => (
           <AnimatedSection
             as="li"
-            key={`${item.name}-${item.date}`}
+            key={`${item.name}-${item.date}-${item.credentialId ?? ""}`}
             delay={Math.min(index * 0.06, 0.24)}
             burstScale={0.5}
             className="flex items-start gap-3 py-4 first:pt-0 last:pb-0"
           >
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-border bg-muted text-muted-foreground">
-              <AwardCertificate className="size-5" />
-            </span>
+            <IssuerLogo issuer={item.issuer} />
             <div className="min-w-0 flex-1">
               <div className="flex flex-col gap-0.5 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
                 <div className="min-w-0">
@@ -50,6 +49,15 @@ export function CertificatesSection() {
                   {item.date}
                 </span>
               </div>
+              {item.credentialId && (
+                <p
+                  dir="ltr"
+                  className="mt-1 break-all text-xs text-muted-foreground/80"
+                >
+                  <span className="font-sans">{t.credentialId}:</span>{" "}
+                  <span className="font-mono">{item.credentialId}</span>
+                </p>
+              )}
               {item.link && (
                 <a
                   href={item.link}
