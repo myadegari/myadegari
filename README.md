@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mohammad Mehdi Yadegarifard
 
-## Getting Started
+**Fullstack Developer · FastAPI · Next.js · TypeScript · Design Systems**
 
-First, run the development server:
+I build fast, accessible web products with clean component APIs and consistent UI architecture — currently focused on React, Python, and performance-minded applications.
+
+- 🌐 Portfolio: [mehdiyadegari.dev](https://mehdiyadegari.dev)
+- 💼 Experience: senior fullstack roles across SaaS, design systems, and e-commerce
+- 🎓 M.Sc. Computer Engineering, University of Tehran
+
+## What I work with
+
+**Frontend** — React, Next.js, TypeScript, Tailwind CSS, GSAP, WebGL
+**Backend** — FastAPI, Python, GraphQL, PostgreSQL
+**Craft** — design systems, token-driven theming, RTL & a11y, WebSockets
+
+## Certificates by field
+
+| Field | Count |
+| --- | --- |
+| Deep Learning & Neural Networks | 12 |
+| LLMs & Generative AI | 10 |
+| Machine Learning & Data Science | 7 |
+| Reinforcement Learning & AI Agents | 6 |
+| Software Engineering & Web | 5 |
+| AI Engineering & LLMOps | 3 |
+
+Issuers include DeepLearning.AI, DataCamp, Anthropic, Google, Meta, IBM, OpenCV University, EPFL and Quera — every certificate is verifiable from [the certificates page](https://mehdiyadegari.dev/certificates).
+
+## Reach me
+
+- ✉️ [mehyad97@gmail.com](mailto:mehyad97@gmail.com)
+- ✈️ Telegram: [@M3hyad](https://t.me/M3hyad)
+- 🔗 [LinkedIn](https://www.linkedin.com/in/mohammadmehdiyadegarifard) · [GitHub](https://github.com/mehdiyadegari)
+
+<details>
+<summary><b>Running this portfolio locally</b></summary>
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/myadegari/myadegari.git
+cd myadegari
+bun install
+bun run dev   # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Built with Next.js (App Router), Tailwind CSS v4, Base UI, GSAP and Three.js.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+</details>
