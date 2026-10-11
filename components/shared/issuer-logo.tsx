@@ -17,7 +17,7 @@ export function IssuerLogo({
       className={cn(
         // White plate so dark brand marks (Anthropic, Dubai Future Foundation)
         // stay legible against the dark-mode card surface.
-        "flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border bg-white",
+        "flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white",
         className
       )}
     >
@@ -26,7 +26,7 @@ export function IssuerLogo({
         alt={`${issuer} logo`}
         width={40}
         height={40}
-        className="size-6 object-contain"
+        className="object-contain"
       />
     </span>
   );

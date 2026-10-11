@@ -125,7 +125,7 @@ export function CertificatesList() {
                 </div>
                 {item.credentialId && (
                   <p
-                    dir="ltr"
+                    // dir="ltr"
                     className="mt-1 break-all text-xs text-muted-foreground/80"
                   >
                     <span className="font-sans">{t.credentialId}:</span>{" "}
