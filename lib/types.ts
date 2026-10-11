@@ -1,5 +1,17 @@
 export type Lang = "en" | "fa";
 
+/**
+ * Skill area a certificate belongs to. Certificates are language-neutral, so
+ * the id is the shared key and labels live in `@/lib/certificate-fields`.
+ */
+export type CertFieldId =
+  | "deep-learning"
+  | "llm-genai"
+  | "machine-learning"
+  | "rl-agents"
+  | "software-engineering"
+  | "ai-engineering";
+
 export interface ExperienceItem {
   role: string;
   company: string;
@@ -34,6 +46,7 @@ export interface CertificateItem {
   name: string;
   issuer: string;
   date: string;
+  field: CertFieldId;
   link?: string;
   credentialId?: string;
 }

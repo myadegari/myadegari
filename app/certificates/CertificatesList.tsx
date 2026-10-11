@@ -1,11 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Export, Search } from "reicon-react";
+import { Search } from "reicon-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { IssuerLogo } from "@/components/shared/issuer-logo";
-import { AnimatedSection } from "@/fx/animated-section";
+import { CertificateRow } from "@/components/shared/certificate-row";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { cn } from "@/lib/utils";
 
@@ -105,46 +104,11 @@ export function CertificatesList() {
       ) : (
         <ul className="divide-y divide-border">
           {filtered.map((item, index) => (
-            <AnimatedSection
-              as="li"
+            <CertificateRow
               key={`${item.name}-${item.issuer}-${item.date}-${item.credentialId ?? ""}`}
-              delay={Math.min(index * 0.05, 0.3)}
-              burstScale={0.5}
-              className="flex items-start gap-3 py-4 first:pt-0 last:pb-0"
-            >
-              <IssuerLogo issuer={item.issuer} />
-              <div className="min-w-0 flex-1">
-                <div className="flex flex-col gap-0.5 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
-                  <div className="min-w-0">
-                    <h3 className="text-base font-semibold">{item.name}</h3>
-                    <p className="text-sm text-muted-foreground">{item.issuer}</p>
-                  </div>
-                  <span className="shrink-0 text-sm text-muted-foreground sm:text-end">
-                    {item.date}
-                  </span>
-                </div>
-                {item.credentialId && (
-                  <p
-                    // dir="ltr"
-                    className="mt-1 break-all text-xs text-muted-foreground/80"
-                  >
-                    <span className="font-sans">{t.credentialId}:</span>{" "}
-                    <span className="font-mono">{item.credentialId}</span>
-                  </p>
-                )}
-                {item.link && (
-                  <a
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-1.5 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
-                  >
-                    {t.verify}
-                    <Export className="size-3.5" />
-                  </a>
-                )}
-              </div>
-            </AnimatedSection>
+              item={item}
+              index={index}
+            />
           ))}
         </ul>
       )}

@@ -70,6 +70,8 @@ export interface UiStrings {
   showingCount: string;
   credentialId: string;
   credlyProfile: string;
+  browseFields: string;
+  certificatesWord: string;
 }
 
 const en: UiStrings = {
@@ -143,6 +145,9 @@ const en: UiStrings = {
   showingCount: "Showing",
   credentialId: "Credential ID",
   credlyProfile: "Credly profile",
+  browseFields:
+    "Every certificate I have, grouped by field — expand one to see the certificates inside it.",
+  certificatesWord: "certificates",
 };
 
 const fa: UiStrings = {
@@ -216,6 +221,9 @@ const fa: UiStrings = {
   showingCount: "نمایش",
   credentialId: "شناسه گواهی",
   credlyProfile: "پروفایل Credly",
+  browseFields:
+    "همه گواهی‌نامه‌ها بر اساس حوزه مهارتی — یک حوزه را باز کنید تا گواهی‌های آن را ببینید.",
+  certificatesWord: "گواهی",
 };
 
 export const strings: Record<Lang, UiStrings> = { en, fa };
