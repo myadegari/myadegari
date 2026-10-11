@@ -58,7 +58,7 @@ export interface ProfileInfo {
   location: string;
   about: string;
   email: string;
-  phone: string;
+  telegram: string;
   website: string;
   linkedin: string;
   github: string;

@@ -10,8 +10,8 @@ const en: PortfolioContent = {
     location: "Tehran, Iran",
     about:
       "Fullstack developer focused on FastAPI, Next.js, TypeScript, and design systems. I care about clean component APIs, consistent UI architecture, and shipping interfaces that feel effortless on every device. Recently focused on React, Python, and performance-minded web applications.",
-    email: "mehdi@example.com",
-    phone: "+98 912 000 0000",
+    email: "mehyad97@gmail.com",
+    telegram: "@M3hyad",
     website: "mehdiyadegari.dev",
     linkedin: "https://www.linkedin.com/in/mohammadmehdiyadegarifard",
     github: "https://github.com/mehdiyadegari",
@@ -224,8 +224,8 @@ const fa: PortfolioContent = {
     location: "تهران، ایران",
     about:
       "توسعه‌دهنده فول‌استک با تمرکز بر فست‌اپی، نکست‌جی‌اس، تایپ‌اسکریپت و سیستم‌های طراحی. به APIهای تمیز کامپوننت‌ها، معماری یکپارچه UI و رابط‌های کاربری روان روی همه دستگاه‌ها اهمیت می‌دهم. تمرکز اخیر من روی ری‌اکت، پایتون و وب‌اپلیکیشن‌های کارآمد است.",
-    email: "mehdi@example.com",
-    phone: "+98 912 000 0000",
+    email: "mehyad97@gmail.com",
+    telegram: "@M3hyad",
     website: "mehdiyadegari.dev",
     linkedin: "https://www.linkedin.com/in/mohammadmehdiyadegarifard",
     github: "https://github.com/mehdiyadegari",

@@ -1,10 +1,9 @@
 "use client";
 
-import { Award, Envelope, Language, Link, Phone } from "reicon-react";
+import { Envelope, Language, Link, PaperPlane } from "reicon-react";
 import { SectionCard } from "@/components/shared/section-card";
 import { Badge } from "@/components/ui/badge";
 import { useI18n } from "@/components/providers/i18n-provider";
-import { CREDLY_PROFILE_URL } from "@/lib/certificates";
 
 export function RightRail() {
   const { t, data } = useI18n();
@@ -23,9 +22,18 @@ export function RightRail() {
               <span className="min-w-0 truncate">{profile.email}</span>
             </a>
           </li>
-          <li className="flex items-center gap-2.5 text-muted-foreground">
-            <Phone className="size-4 shrink-0" />
-            <span dir="ltr">{profile.phone}</span>
+          <li>
+            <a
+              href={`https://t.me/${profile.telegram.replace(/^@/, "")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2.5 text-primary hover:underline"
+            >
+              <PaperPlane className="size-4 shrink-0 text-muted-foreground" />
+              <span className="min-w-0 truncate" dir="ltr">
+                {profile.telegram}
+              </span>
+            </a>
           </li>
           <li>
             <a
@@ -36,17 +44,6 @@ export function RightRail() {
             >
               <Link className="size-4 shrink-0 text-muted-foreground" />
               <span className="min-w-0 truncate">{profile.website}</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href={CREDLY_PROFILE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2.5 text-primary hover:underline"
-            >
-              <Award className="size-4 shrink-0 text-muted-foreground" />
-              <span className="min-w-0 truncate">{t.credlyProfile}</span>
             </a>
           </li>
         </ul>
