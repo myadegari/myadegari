@@ -1,5 +1,7 @@
 "use client";
 
+import { loadGsap } from "./gsap-runtime";
+
 export type ThemeDirection = "to-dark" | "to-light";
 
 interface AnimatedToggleOptions {
@@ -19,7 +21,7 @@ function prefersReducedMotion(): boolean {
 
 /** GSAP fallback: a solid veil sweeps across, theme swaps at full cover. */
 async function gsapWipe(direction: ThemeDirection, toggleTheme: () => void) {
-  const { gsap } = await import("gsap");
+  const { gsap } = await loadGsap();
   const toDark = direction === "to-dark";
 
   const veil = document.createElement("div");

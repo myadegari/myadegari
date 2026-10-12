@@ -21,6 +21,20 @@ interface DustContextValue {
   isDesktop: boolean;
 }
 
+/**
+ * Breakpoint queries used to pick quality and layout mode.
+ *
+ * These are watched as media queries rather than sampled from a resize event:
+ * a mobile browser fires `resize` continuously while the reader scrolls (the
+ * URL bar collapsing resizes the viewport), and every tick would re-run the
+ * detection and, when the answer changed, tear down and rebuild every
+ * ScrollTrigger on the page. Media queries only fire on an actual change of
+ * match state.
+ */
+const COARSE_POINTER_QUERY = "(pointer: coarse)";
+const WIDE_QUERY = "(min-width: 640px)";
+const DESKTOP_QUERY = "(min-width: 1024px)";
+
 const DustContext = createContext<DustContextValue>({
   enabled: false,
   quality: "low",
@@ -48,8 +62,8 @@ function initialMotionEnabled(): boolean {
 function detectQuality(): DustQuality {
   if (typeof window === "undefined") return "low";
   try {
-    if (window.matchMedia("(pointer: coarse)").matches) return "low";
-    if (window.innerWidth < 640) return "low";
+    if (window.matchMedia(COARSE_POINTER_QUERY).matches) return "low";
+    if (!window.matchMedia(WIDE_QUERY).matches) return "low";
   } catch {
     return "low";
   }
@@ -59,7 +73,7 @@ function detectQuality(): DustQuality {
 function detectDesktop(): boolean {
   if (typeof window === "undefined") return false;
   try {
-    return window.matchMedia("(min-width: 1024px)").matches;
+    return window.matchMedia(DESKTOP_QUERY).matches;
   } catch {
     return false;
   }
@@ -73,21 +87,22 @@ export function DustProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const cleanups: Array<() => void> = [];
-    try {
-      const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-      const applyMotion = () => setEnabled(initialMotionEnabled());
-      mq.addEventListener("change", applyMotion);
-      cleanups.push(() => mq.removeEventListener("change", applyMotion));
-    } catch {
-      // ignore
-    }
-
-    const onResize = () => {
-      setQuality(detectQuality());
-      setIsDesktop(detectDesktop());
+    const watch = (query: string, handler: () => void) => {
+      try {
+        const mq = window.matchMedia(query);
+        mq.addEventListener("change", handler);
+        cleanups.push(() => mq.removeEventListener("change", handler));
+      } catch {
+        // ignore
+      }
     };
-    window.addEventListener("resize", onResize);
-    cleanups.push(() => window.removeEventListener("resize", onResize));
+
+    watch("(prefers-reduced-motion: reduce)", () =>
+      setEnabled(initialMotionEnabled())
+    );
+    watch(COARSE_POINTER_QUERY, () => setQuality(detectQuality()));
+    watch(WIDE_QUERY, () => setQuality(detectQuality()));
+    watch(DESKTOP_QUERY, () => setIsDesktop(detectDesktop()));
 
     // Layout shifts (language toggle, fonts, images) move triggers.
     const observer = new MutationObserver(() => scheduleScrollRefresh());

@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Vazirmatn, Public_Sans } from "next/font/google";
+import { Suspense } from "react";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { AppProviders } from "@/components/providers/app-providers";
 import { SiteHeader } from "@/components/layout/site-header";
-
 const publicSans = Public_Sans({
   subsets: ["latin"],
   variable: "--font-public-sans",
@@ -13,7 +14,24 @@ const publicSans = Public_Sans({
 const vazirmatn = Vazirmatn({
   variable: "--font-vazirmatn",
   subsets: ["arabic", "latin"],
+  // The Arabic subset is a large file that only Persian readers need. Without
+  // this, next/font emits a <link rel=preload> for it on every page, so every
+  // English visitor downloads a font that can never match a glyph on screen.
+  // It stays declared, so it is still fetched on demand if the reader switches
+  // to Persian.
+  preload: false,
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  // Matches --background in both themes so the browser chrome around the page
+  // is not a different colour from the page itself.
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f4f2ee" },
+    { media: "(prefers-color-scheme: dark)", color: "#1b1f23" },
+  ],
+};
 
 export const metadata: Metadata = {
   title: "Mohammadmehdi Yadegarifard | Portfolio",
@@ -42,6 +60,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <SiteHeader/>
           {children}
           </AppProviders>
+        {/* Route changes are read from the router, so this belongs in the root
+            layout inside <body> rather than on individual pages. Suspense keeps
+            it off the critical path if the router is ever in a suspending state. */}
+        <Suspense fallback={null}>
+          <Analytics />
+        </Suspense>
       </body>
     </html>
   );

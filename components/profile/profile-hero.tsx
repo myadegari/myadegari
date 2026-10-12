@@ -1,8 +1,10 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Download, Envelope, Link, Location } from "reicon-react";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/components/providers/i18n-provider";
+import { useDust } from "@/fx/dust-provider";
 import { useDustSection } from "@/fx/use-dust-section";
 import Image from "next/image";
 import dynamic from "next/dynamic";
@@ -22,10 +24,58 @@ const DavidAsciiBanner = dynamic(
   }
 );
 
+/**
+ * Hold the banner back until the browser is idle on low-power devices.
+ *
+ * three.js is a ~530 KB chunk. Fetching it during hydration puts it in
+ * competition with the hero image and the font files for the same connection,
+ * which on a phone delays exactly the content the reader came for. Deferring
+ * to idle lets first paint and the LCP image win; the wash already on screen
+ * covers the gap. Desktop is not deferred.
+ *
+ * Always resolved from an async callback, never synchronously during render or
+ * effect setup.
+ */
+function useIdleMounted(defer: boolean): boolean {
+  const [idleReached, setIdleReached] = useState(false);
+
+  useEffect(() => {
+    if (!defer) return;
+    let cancelled = false;
+    const run = () => {
+      if (!cancelled) setIdleReached(true);
+    };
+    const ric = (
+      window as Window & {
+        requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      }
+    ).requestIdleCallback;
+
+    if (typeof ric === "function") {
+      const id = ric(run, { timeout: 1200 });
+      return () => {
+        cancelled = true;
+        window.cancelIdleCallback?.(id);
+      };
+    }
+    const id = window.setTimeout(run, 200);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(id);
+    };
+  }, [defer]);
+
+  // Not deferring needs no state at all, so the non-deferred path renders the
+  // banner on the very first pass.
+  return !defer || idleReached;
+}
+
 export function ProfileHero() {
   const { t, data } = useI18n();
   const { profile } = data;
+  const { quality } = useDust();
   const ref = useDustSection<HTMLElement>({ exit: "stay" });
+  const bannerReady = useIdleMounted(quality === "low");
 
   return (
     <section
@@ -34,7 +84,11 @@ export function ProfileHero() {
       className="overflow-hidden rounded-lg bg-card text-card-foreground ring-1 ring-foreground/10"
     >
       <div className="relative">
-        <DavidAsciiBanner className="h-56 sm:h-72" />
+        {bannerReady ? (
+          <DavidAsciiBanner className="h-56 sm:h-72" />
+        ) : (
+          <div className="david-fallback-wash h-56 sm:h-72" aria-hidden="true" />
+        )}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-card to-transparent" />
       </div>
       <div className="px-4 pb-5 sm:px-6 sm:pb-6 mt-12">
@@ -43,6 +97,10 @@ export function ProfileHero() {
             <Image
               src={ProfileImage}
               alt="Profile image"
+              // Without this the browser treats the source as full-viewport
+              // width and pulls the 640px variant to paint an 80px circle.
+              sizes="(min-width: 640px) 96px, 80px"
+              priority
               className="h-full w-full scale-135 object-cover"
             />
           </span>

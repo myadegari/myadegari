@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, type RefObject } from "react";
 import { useDust } from "./dust-provider";
+import { loadGsap } from "./gsap-runtime";
 
 export type DustExitMode =
   | "dust"
@@ -33,7 +34,7 @@ export function scheduleScrollRefresh() {
   refreshTimer = setTimeout(async () => {
     refreshTimer = null;
     try {
-      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      const { ScrollTrigger } = await loadGsap();
       ScrollTrigger.refresh();
     } catch {
       // gsap not loaded yet; triggers will measure correctly on creation
@@ -44,7 +45,9 @@ export function scheduleScrollRefresh() {
 /**
  * Blur reveal animation for a section element.
  * - Enter: the card fades/scales/unblurs in.
- * - Exit: timeline reverses — card blurs and fades away.
+ * - Exit: timeline reverses — card blurs and fades away (high quality only).
+ * - Low quality (touch / narrow screens): reveals once on enter and stays,
+ *   animating only opacity and transform.
  * - Reduced motion: returns a plain ref, content stays static.
  */
 export function useDustSection<T extends HTMLElement = HTMLElement>(
@@ -60,19 +63,19 @@ export function useDustSection<T extends HTMLElement = HTMLElement>(
     if (!el || !mounted || !enabled) return;
     const low = quality === "low";
     const travel = distance ?? (low ? 16 : 28);
-    const actions = stay ? "play none none none" : "play reverse play reverse";
+    // Phones scroll far more than desktops and the reverse action makes content
+    // dissolve every time the reader scrolls back up, which reads as breakage
+    // on a small screen. Low quality therefore reveals once and stays put.
+    const actions =
+      stay || low ? "play none none none" : "play reverse play reverse";
 
     let cancelled = false;
     let cleanup: (() => void) | null = null;
 
     (async () => {
       try {
-        const [{ gsap }, { ScrollTrigger }] = await Promise.all([
-          import("gsap"),
-          import("gsap/ScrollTrigger"),
-        ]);
+        const { gsap } = await loadGsap();
         if (cancelled || !ref.current) return;
-        gsap.registerPlugin(ScrollTrigger);
 
         const ctx = gsap.context(() => {
           const tl = gsap.timeline({
@@ -84,19 +87,19 @@ export function useDustSection<T extends HTMLElement = HTMLElement>(
               toggleActions: actions,
             },
           });
-          const cardFrom: Record<string, string | number> = {
-            opacity: 0,
-            y: travel,
-            scale: 0.96,
-          };
+          const cardFrom: Record<string, string | number> = { opacity: 0, y: travel };
           const cardTo: Record<string, string | number> = {
             opacity: 1,
             y: 0,
-            scale: 1,
             duration: low ? 0.35 : 0.45,
             delay,
           };
-          if (!low) {
+          if (low) {
+            // Opacity and transform only: both stay on the compositor. Scale
+            // would force a re-raster of the whole card on every frame.
+          } else {
+            cardFrom.scale = 0.96;
+            cardTo.scale = 1;
             cardFrom.filter = "blur(10px)";
             cardTo.filter = "blur(0px)";
           }

@@ -25,10 +25,30 @@ const FOV_DEG = 35;
 
 export type DavidQuality = "high" | "low";
 
+/**
+ * Sampling density and backing-store scale per quality.
+ *
+ * `low` is the phone setting, where the banner renders a single frozen frame.
+ * Because nothing is repainted after that frame, the backing-store scale is
+ * free, so it stays high enough to keep the glyphs crisp. The column count is
+ * what actually governs legibility: point size is derived from the row
+ * spacing, so sampling too coarsely enlarges every sprite until the glyphs
+ * overlap and the statue reads as random dots. Keep this at the density the
+ * phone looked right at, and buy the performance back from not animating
+ * rather than from throwing points away.
+ */
+const QUALITY_SETTINGS = {
+  high: { columns: 270, maxPixelRatio: 2, antialias: true },
+  low: { columns: 110, maxPixelRatio: 1.5, antialias: false },
+} as const satisfies Record<
+  DavidQuality,
+  { columns: number; maxPixelRatio: number; antialias: boolean }
+>;
+
 export interface DavidAsciiInit {
   container: HTMLElement;
   quality?: DavidQuality;
-  /** When true, render a single static frame (reduced motion). */
+  /** When true, render a single static frame and never start the rAF loop. */
   staticFrame?: boolean;
   darkSrc?: string;
   lightSrc?: string;
@@ -234,12 +254,16 @@ export class DavidAsciiRenderer {
   }
 
   async init(): Promise<void> {
+    const settings = QUALITY_SETTINGS[this.quality];
     let renderer: THREE.WebGLRenderer;
     try {
       renderer = new THREE.WebGLRenderer({
         canvas: this.canvas,
         alpha: true,
-        antialias: true,
+        // MSAA does nothing for a point cloud (the fragments are discarded or
+        // blended, never edge-antialiased), so it is only paid for on desktop.
+        antialias: settings.antialias,
+        powerPreference: this.staticFrame ? "low-power" : "default",
       });
     } catch {
       throw new Error("WebGL unavailable");
@@ -318,8 +342,17 @@ export class DavidAsciiRenderer {
 
     this.startTime = performance.now();
     if (this.staticFrame) {
-      // Single sculptural frame: slight turn so the relief reads in 3D.
-      group.rotation.set(1.04, 0.18, 0);
+      if (this.quality === "high") {
+        // Reduced motion on a capable device: a strong tilt so the relief
+        // reads as sculpted rather than flat.
+        group.rotation.set(1.04, 0.18, 0);
+      } else {
+        // A frozen phone frame has to hold the same pose the animation rests
+        // at. The dramatic tilt above is meant to be read through parallax
+        // over time; frozen at phone sampling density it just turns the
+        // silhouette away from the viewer and the cloud becomes noise.
+        group.rotation.set(0.05, 0.1, 0);
+      }
       this.render();
     } else {
       this.kick();
@@ -351,8 +384,8 @@ export class DavidAsciiRenderer {
       return null;
     }
     if (this.disposed || token !== this.loadToken) return null;
-    const cols = this.quality === "low" ? 110 : 270;
-    return { src, sample: sampleLuminance(img, cols) };
+    const { columns } = QUALITY_SETTINGS[this.quality];
+    return { src, sample: sampleLuminance(img, columns) };
   }
 
   private applyTheme() {
@@ -393,7 +426,7 @@ export class DavidAsciiRenderer {
     const height = Math.max(1, Math.floor(rect.height));
     const ratio = Math.min(
       window.devicePixelRatio || 1,
-      this.quality === "low" ? 1.5 : 2
+      QUALITY_SETTINGS[this.quality].maxPixelRatio
     );
     this.renderer.setPixelRatio(ratio);
     this.renderer.setSize(width, height, false);

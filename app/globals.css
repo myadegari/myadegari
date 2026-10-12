@@ -5,6 +5,11 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* Extra step below `xs`. The header has to hold the full name next to three
+     44px controls on a 360px phone, and 12px does not fit at that width. */
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+
   --font-sans:
     "Public Sans", "Vazirmatn", var(--font-public-sans), var(--font-vazirmatn),
     ui-sans-serif, system-ui, sans-serif;

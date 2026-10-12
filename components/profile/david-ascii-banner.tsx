@@ -14,6 +14,11 @@ import { cn } from "@/lib/utils";
  * True WebGL point-cloud (luminance becomes geometry), marble monochrome,
  * full statue always in frame. Dark mode samples dark-david.jpg, light mode
  * samples light-david.jpg. Falls back to a static image without WebGL.
+ *
+ * On phones the cloud is rendered as one frozen frame: the turn animation is a
+ * slow ambient effect, not information, and a permanent rAF loop repainting
+ * thousands of blended sprites is the single most expensive thing on the page.
+ * The relief is still 3D and still parallax-lit, it simply holds still.
  */
 export function DavidAsciiBanner({ className }: { className?: string }) {
   const { quality, enabled, mounted } = useDust();
@@ -22,6 +27,7 @@ export function DavidAsciiBanner({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [failed, setFailed] = useState(false);
   const [ready, setReady] = useState(false);
+  const lowPower = quality === "low";
 
   useEffect(() => {
     if (!mounted || failed) return;
@@ -37,7 +43,7 @@ export function DavidAsciiBanner({ className }: { className?: string }) {
         renderer = new DavidAsciiRenderer(canvas, {
           container: wrap,
           quality,
-          staticFrame: !enabled,
+          staticFrame: !enabled || lowPower,
         });
         await renderer.init();
         if (cancelled) {
@@ -55,7 +61,7 @@ export function DavidAsciiBanner({ className }: { className?: string }) {
       renderer?.dispose();
       renderer = null;
     };
-  }, [mounted, quality, enabled, failed]);
+  }, [mounted, quality, enabled, lowPower, failed]);
 
   const fallbackSrc = theme === "dark" ? DarkDavidImage : LightDavidImage;
 
@@ -84,7 +90,10 @@ export function DavidAsciiBanner({ className }: { className?: string }) {
       <div className="david-backdrop" />
       <canvas ref={canvasRef} className="david-canvas" />
       <div className="david-vignette" />
-      <div className="david-grain" />
+      {/* mix-blend-mode forces its own compositing layer and a blend pass for
+          every frame the banner is on screen. Not worth it on a phone, where
+          the grain is barely visible at banner size. */}
+      {!lowPower && <div className="david-grain" />}
       {!ready && (
         <div className="david-loading">
           <Image

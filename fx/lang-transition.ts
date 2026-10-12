@@ -3,6 +3,7 @@
 import type { MouseEvent } from "react";
 import type { Lang } from "@/lib/types";
 import type { DustQuality } from "./dust-provider";
+import { loadGsap } from "./gsap-runtime";
 
 interface AnimatedLangToggleOptions {
   lang: Lang;
@@ -72,7 +73,7 @@ function afterDomCommit() {
  * turn it into a containing block and make it detach mid-transition.
  */
 async function gsapHaze(button: HTMLElement | null, apply: () => Promise<void>) {
-  const { gsap } = await import("gsap");
+  const { gsap } = await loadGsap();
 
   const veil = document.createElement("div");
   veil.className = "lang-veil";

@@ -101,7 +101,7 @@ export function SiteHeader() {
       ref={headerRef}
       className="sticky top-0 z-50 border-b border-border bg-card/95 backdrop-blur supports-backdrop-filter:bg-card/85 overflow-hidden"
     >
-      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-3 px-4">
+      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-2 px-3 sm:gap-3 sm:px-4">
         <Link
           href="/"
           className="flex min-w-0 items-center gap-2"
@@ -109,7 +109,15 @@ export function SiteHeader() {
         >
           <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground overflow-clip  ring-2 ring-card">
             {/* {initials} */}
-              <Image src={ProfileImage} alt="Profile image" className=" object-cover w-full scale-150"/>
+              <Image
+                src={ProfileImage}
+                alt="Profile image"
+                // The avatar renders at 32px in a circle; without an explicit
+                // sizes hint the optimiser assumes full viewport width and
+                // ships the 640px source for it.
+                sizes="32px"
+                className="object-cover w-full scale-150"
+              />
           </span>
           <SquishName
             key={name}
@@ -155,7 +163,7 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <div className="flex items-center gap-1">
+        <div className="flex shrink-0 items-center gap-1">
           <ThemeToggle />
           <LanguageToggle />
           <Button
@@ -175,7 +183,7 @@ export function SiteHeader() {
                   variant="ghost"
                   size="icon"
                   type="button"
-                  className="lg:hidden"
+                  className="size-11 lg:hidden"
                   aria-label={t.menu}
                 />
               }

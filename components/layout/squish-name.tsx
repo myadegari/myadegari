@@ -1,11 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { useGSAP } from "@gsap/react";
-import { gsap } from "gsap";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { cn } from "@/lib/utils";
-
-gsap.registerPlugin(useGSAP);
+import { loadGsap } from "@/fx/gsap-runtime";
 
 interface SquishNameProps {
   full: string;
@@ -21,6 +18,40 @@ function splitUnits(text: string, split: "chars" | "words"): string[] {
   return text.split("");
 }
 
+/**
+ * Static only when the reader has asked for reduced motion.
+ *
+ * Touch devices are deliberately NOT excluded: the roll plays as an intro on
+ * load and reverses on tap (tap focuses the link, which fires focusin), so
+ * dropping it would remove the effect on phones for no real gain. GSAP is
+ * already loaded lazily for the scroll reveals, so the name costs nothing
+ * extra here.
+ */
+function prefersStatic(): boolean {
+  if (typeof window === "undefined") return true;
+  try {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return true;
+  } catch {
+    return true;
+  }
+  return false;
+}
+
+function subscribeNoop() {
+  return () => {};
+}
+
+/**
+ * Whether this device should skip the roll animation.
+ *
+ * Read through useSyncExternalStore so the server and the first client render
+ * agree (they report "animated"), and the value corrects itself as soon as
+ * hydration finishes — no setState-in-effect, no extra render pass.
+ */
+function usePrefersStatic(): boolean {
+  return useSyncExternalStore(subscribeNoop, prefersStatic, () => false);
+}
+
 export function SquishName({
   full,
   short,
@@ -31,76 +62,85 @@ export function SquishName({
   const wrapRef = useRef<HTMLSpanElement>(null);
   const fullLayerRef = useRef<HTMLSpanElement>(null);
   const shortLayerRef = useRef<HTMLSpanElement>(null);
-  const [reduced] = useState(
-    () =>
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
-  // Instant toggle only used when reduced motion is preferred (no animation).
+  const isStatic = usePrefersStatic();
+  // Instant toggle only used when the roll is skipped (no animation).
   const [expanded, setExpanded] = useState(false);
 
-  const fullUnits = splitUnits(full, split);
-  const shortUnits = splitUnits(short, split);
+  useEffect(() => {
+    if (isStatic) return;
+    const wrap = wrapRef.current;
+    const fullLayer = fullLayerRef.current;
+    const shortLayer = shortLayerRef.current;
+    if (!wrap || !fullLayer || !shortLayer) return;
 
-  useGSAP(
-    () => {
-      if (reduced) return;
-      const wrap = wrapRef.current;
-      const fullLayer = fullLayerRef.current;
-      const shortLayer = shortLayerRef.current;
-      if (!wrap || !fullLayer || !shortLayer) return;
+    const fullUnits = fullLayer.querySelectorAll<HTMLElement>(".squish-unit");
+    const shortUnits = shortLayer.querySelectorAll<HTMLElement>(".squish-unit");
+    if (fullUnits.length === 0 || shortUnits.length === 0) return;
 
-      const fullChars = fullLayer.querySelectorAll<HTMLElement>(".squish-unit");
-      const shortChars = shortLayer.querySelectorAll<HTMLElement>(".squish-unit");
-      if (fullChars.length === 0 || shortChars.length === 0) return;
+    let cancelled = false;
+    let cleanup: (() => void) | null = null;
 
-      // English sweeps left→right, Persian right→left. In RTL the first DOM
-      // unit is the rightmost one, so "start" already means right→left there.
-      // const isRTL = document.documentElement.dir === "rtl";
-      const sweepFrom: number =
-        (split === "chars")  ? 0.02 : 0.1;
+    (async () => {
+      try {
+        const { gsap } = await loadGsap();
+        if (cancelled) return;
 
-      // One timeline: full rolls down out of the clipped stage while short
-      // rolls down in from above, unit by unit with stagger.
-      const tl = gsap.timeline({ paused: true });
-      tl.to(
-        fullChars,
-        { yPercent: 110, duration: 0.55, ease: "power3.out", stagger: sweepFrom },
-        0
-      );
-      tl.fromTo(
-        shortChars,
-        { yPercent: -110 },
-        { yPercent: 0, duration: 0.55, ease: "power3.out", stagger: sweepFrom },
-        0
-      );
+        // English sweeps left→right, Persian right→left. In RTL the first DOM
+        // unit is the rightmost one, so "start" already means right→left there.
+        const sweepFrom = split === "chars" ? 0.02 : 0.1;
 
-      // Intro: auto-roll to the short name. Hover/focus reverses the roll.
-      const id = window.setTimeout(() => tl.play(), delay);
-      const expand = () => tl.reverse();
-      const collapse = () => tl.play();
-      wrap.addEventListener("mouseenter", expand);
-      wrap.addEventListener("mouseleave", collapse);
-      wrap.addEventListener("focusin", expand);
-      wrap.addEventListener("focusout", collapse);
+        // One timeline: full rolls down out of the clipped stage while short
+        // rolls down in from above, unit by unit with stagger.
+        const tl = gsap.timeline({ paused: true });
+        tl.to(
+          fullUnits,
+          { yPercent: 110, duration: 0.55, ease: "power3.out", stagger: sweepFrom },
+          0
+        );
+        tl.fromTo(
+          shortUnits,
+          { yPercent: -110 },
+          { yPercent: 0, duration: 0.55, ease: "power3.out", stagger: sweepFrom },
+          0
+        );
 
-      return () => {
-        window.clearTimeout(id);
-        wrap.removeEventListener("mouseenter", expand);
-        wrap.removeEventListener("mouseleave", collapse);
-        wrap.removeEventListener("focusin", expand);
-        wrap.removeEventListener("focusout", collapse);
-      };
-    },
-    // Remount via key={full} on lang change, so full/short are mount-time values.
-    { dependencies: [delay, reduced, full, short, split], scope: wrapRef, revertOnUpdate: true }
-  );
+        const onEnter = () => tl.reverse();
+        const onLeave = () => tl.play();
+        // Intro: auto-roll to the short name. Hover/focus reverses the roll.
+        const id = window.setTimeout(() => tl.play(), delay);
+        wrap.addEventListener("mouseenter", onEnter);
+        wrap.addEventListener("mouseleave", onLeave);
+        wrap.addEventListener("focusin", onEnter);
+        wrap.addEventListener("focusout", onLeave);
 
-  if (reduced) {
+        cleanup = () => {
+          window.clearTimeout(id);
+          wrap.removeEventListener("mouseenter", onEnter);
+          wrap.removeEventListener("mouseleave", onLeave);
+          wrap.removeEventListener("focusin", onEnter);
+          wrap.removeEventListener("focusout", onLeave);
+          tl.kill();
+        };
+      } catch {
+        // Animation lib unavailable: the full name simply stays put and the
+        // hover handlers do nothing. Nothing is broken, it just does not roll.
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+      cleanup?.();
+    };
+  }, [isStatic, delay, split]);
+
+  if (isStatic) {
     return (
       <span
         className={cn(
-          "hidden cursor-default text-sm font-semibold tracking-tight sm:inline-block",
+          // The stage reserves the width of the longer of the two names, so on
+          // a phone the full name only fits at the smaller size. Desktop keeps
+          // text-sm from sm up.
+          "min-w-0 max-w-full truncate cursor-default text-2xs font-semibold tracking-tight sm:text-sm",
           className
         )}
         onMouseEnter={() => setExpanded(true)}
@@ -109,7 +149,7 @@ export function SquishName({
         onBlur={() => setExpanded(false)}
         title={full}
       >
-        {expanded ? full : short}
+        <span aria-hidden="true">{expanded ? full : short}</span>
         <span className="sr-only">{`${full} (${short})`}</span>
       </span>
     );
@@ -127,16 +167,20 @@ export function SquishName({
     <span
       ref={wrapRef}
       className={cn(
-        "squish-stage hidden cursor-default text-sm font-semibold tracking-tight sm:inline-block",
+        // min-w-0 + max-w-full let the stage shrink inside the header instead
+        // of pushing the controls off screen. It still reserves the width of
+        // the longer name, so the smaller size below sm is what keeps the full
+        // name from being clipped on a phone.
+        "squish-stage min-w-0 max-w-full truncate cursor-default text-2xs font-semibold tracking-tight sm:text-sm",
         className
       )}
       title={full}
     >
       <span ref={fullLayerRef} className="squish-layer" aria-hidden="true">
-        {renderUnits(fullUnits)}
+        {renderUnits(splitUnits(full, split))}
       </span>
       <span ref={shortLayerRef} className="squish-layer" aria-hidden="true">
-        {renderUnits(shortUnits)}
+        {renderUnits(splitUnits(short, split))}
       </span>
       <span className="sr-only">{`${full} (${short})`}</span>
     </span>
