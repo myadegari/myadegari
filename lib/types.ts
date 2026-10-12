@@ -59,7 +59,11 @@ export interface ProfileInfo {
   about: string;
   email: string;
   telegram: string;
-  website: string;
+  /**
+   * Optional. The site does not link to itself, so this is normally unset and
+   * the hero, right rail and footer omit the link entirely.
+   */
+  website?: string;
   linkedin: string;
   github: string;
   skills: string[];

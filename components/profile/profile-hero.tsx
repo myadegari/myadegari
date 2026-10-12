@@ -123,15 +123,17 @@ export function ProfileHero() {
                 <Location className="size-4 shrink-0" />
                 {profile.location}
               </span>
-              <a
-                href={`https://${profile.website}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 font-medium text-primary hover:underline"
-              >
-                <Link className="size-4 shrink-0" />
-                {profile.website}
-              </a>
+              {profile.website && (
+                <a
+                  href={`https://${profile.website}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 font-medium text-primary hover:underline"
+                >
+                  <Link className="size-4 shrink-0" />
+                  {profile.website}
+                </a>
+              )}
             </p>
           </div>
         </div>

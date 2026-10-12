@@ -6,7 +6,7 @@
 
 I build fast, accessible web products with clean component APIs and consistent UI architecture — currently focused on React, Python, and performance-minded applications.
 
-[![Portfolio](https://img.shields.io/badge/Portfolio-mehdiyadegari.dev-22C55E?style=for-the-badge&logo=google-chrome&logoColor=white)](https://mehdiyadegari.dev)
+[![Portfolio](https://img.shields.io/badge/Portfolio-myadegari.vercel.app-22C55E?style=for-the-badge&logo=google-chrome&logoColor=white)](https://myadegari.vercel.app)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mohammadmehdiyadegarifard)
 [![Email](https://img.shields.io/badge/Email-mehyad97@gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:mehyad97@gmail.com)
 [![Telegram](https://img.shields.io/badge/Telegram-@M3hyad-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/M3hyad)
@@ -45,7 +45,7 @@ I build fast, accessible web products with clean component APIs and consistent U
 | Software Engineering & Web | 5 |
 | AI Engineering & LLMOps | 3 |
 
-Issuers include **DeepLearning.AI · DataCamp · Anthropic · Google · Meta · IBM · OpenCV University · EPFL · Quera** — every certificate is verifiable from [the certificates page](https://mehdiyadegari.dev/certificates).
+Issuers include **DeepLearning.AI · DataCamp · Anthropic · Google · Meta · IBM · OpenCV University · EPFL · Quera** — every certificate is verifiable from [the certificates page](https://myadegari.vercel.app/certificates).
 
 ---
 
@@ -65,7 +65,7 @@ Issuers include **DeepLearning.AI · DataCamp · Anthropic · Google · Meta · 
 
 - ✉️ [mehyad97@gmail.com](mailto:mehyad97@gmail.com)
 - ✈️ Telegram: [@M3hyad](https://t.me/M3hyad)
-- 🔗 [LinkedIn](https://www.linkedin.com/in/mohammadmehdiyadegarifard) · 🌐 [Portfolio](https://mehdiyadegari.dev)
+- 🔗 [LinkedIn](https://www.linkedin.com/in/mohammadmehdiyadegarifard) · 🌐 [Portfolio](https://myadegari.vercel.app)
 
 <details>
 <summary><b>🖥️ Running this portfolio locally</b></summary>

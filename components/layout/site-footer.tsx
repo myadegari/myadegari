@@ -36,15 +36,17 @@ export function SiteFooter() {
           >
             <Icon icon={GithubIcon} />
           </a>
-          <a
-            href={`https://${website}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground transition-colors hover:text-primary"
-            aria-label={t.website}
-          >
-            <Globe />
-          </a>
+          {website && (
+            <a
+              href={`https://${website}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground transition-colors hover:text-primary"
+              aria-label={t.website}
+            >
+              <Globe />
+            </a>
+          )}
         </div>
       </div>
     </footer>

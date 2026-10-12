@@ -58,17 +58,19 @@ export function RightRail() {
               </span>
             </a>
           </li>
-          <li>
-            <a
-              href={`https://${profile.website}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2.5 text-primary hover:underline"
-            >
-              <Link className="size-4 shrink-0 text-muted-foreground" />
-              <span className="min-w-0 truncate">{profile.website}</span>
-            </a>
-          </li>
+          {profile.website && (
+            <li>
+              <a
+                href={`https://${profile.website}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2.5 text-primary hover:underline"
+              >
+                <Link className="size-4 shrink-0 text-muted-foreground" />
+                <span className="min-w-0 truncate">{profile.website}</span>
+              </a>
+            </li>
+          )}
         </ul>
       </SectionCard>
 
