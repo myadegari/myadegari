@@ -18,34 +18,68 @@ const en: PortfolioContent = {
     github: "https://github.com/myadegari",
     skills: [
       {
-        label: "Front-end",
-        items: ["React", "Next.js", "TypeScript", "JavaScript"],
-      },
-      {
-        label: "UI & design systems",
+        label: "Languages",
         items: [
-          "Tailwind CSS",
-          "shadcn/ui",
-          "Framer Motion",
-          "Design Systems",
-          "Responsive Layout",
+          "TypeScript",
+          "JavaScript (ES2023)",
+          "Python",
+          "PHP",
+          "HTML5",
+          "CSS3",
+          "Sass",
         ],
       },
       {
-        label: "RTL & accessibility",
-        items: ["RTL & i18n", "Accessibility (a11y)"],
+        label: "Front-end",
+        items: [
+          "React 19",
+          "Next.js 16 (App Router, SSR/SSG)",
+          "Tailwind CSS v4",
+          "Design systems",
+          "Component libraries",
+          "shadcn/ui",
+          "Responsive design",
+          "RTL & i18n",
+          "Accessibility (WCAG)",
+          "Web performance",
+          "Framer Motion",
+          "GSAP",
+        ],
       },
       {
-        label: "Data & state",
-        items: ["TanStack Query", "REST APIs", "State Machines"],
+        label: "State & data",
+        items: [
+          "TanStack Query",
+          "TanStack Table",
+          "Zod",
+          "REST APIs",
+          "Redux",
+          "Redux Toolkit",
+          "Zustand",
+        ],
       },
       {
-        label: "Backend & data",
-        items: ["PostgreSQL", "Drizzle ORM", "FastAPI", "Python", "Docker"],
+        label: "Back-end & data",
+        items: [
+          "FastAPI",
+          "Node.js",
+          "PostgreSQL",
+          "MongoDB",
+          "Drizzle ORM",
+          "NextAuth",
+        ],
       },
       {
-        label: "Quality & delivery",
-        items: ["Vitest", "Playwright", "Web Performance"],
+        label: "Tooling & DevOps",
+        items: [
+          "Docker",
+          "Docker Compose",
+          "Git",
+          "Vite",
+          "Turbopack",
+          "Caddy",
+          "Nginx",
+        ],
       },
     ],
     languages: ["Persian (Native)", "English (Professional)"],
@@ -54,6 +88,7 @@ const en: PortfolioContent = {
     {
       role: "Full Stack Engineer",
       note: "Nakhl-e Danesh Library System",
+      links: [{ label: "Demo", href: "https://library.mehyad.ir" }],
       company: "Larestan Higher Education Complex",
       companyKey: "larestan",
       companyMeta: "Full-time · 2 yrs",
@@ -69,7 +104,8 @@ const en: PortfolioContent = {
     },
     {
       role: "Full Stack Engineer",
-      note: "Certificate Management System",
+      note: "Goharyar Internal Course Management and Certificate Issuance System",
+      links: [{ label: "Demo", href: "https://govahyar.mehyad.ir" }],
       company: "Larestan Higher Education Complex",
       companyKey: "larestan",
       companyMeta: "Full-time · 2 yrs",
@@ -82,7 +118,11 @@ const en: PortfolioContent = {
     },
     {
       role: "Front End Developer",
-      note: "University Website Redesign — lar.ac.ir",
+      note: "University Website Redesign",
+      links: [
+        { label: "New site", href: "https://lar.ac.ir" },
+        { label: "Old site", href: "https://old.lar.ac.ir" },
+      ],
       company: "Larestan Higher Education Complex",
       companyKey: "larestan",
       companyMeta: "Full-time · 2 yrs",
@@ -97,7 +137,9 @@ const en: PortfolioContent = {
     },
     {
       role: "Freelance Frontend, then Full Stack Developer",
-      company: "ijaz — AI Assistant for Investment and Business",
+      company: "Fardad — AI Assistant for Investment and Business",
+      companyKey: "fardad",
+      links: [{ label: "Demo", href: "https://fardad.mehyad.ir" }],
       companyMeta: "Freelance · 1 yr",
       period: "Apr 2024 - Mar 2025",
       location: "Remote",
@@ -124,6 +166,7 @@ const en: PortfolioContent = {
   education: [
     {
       school: "University of Tehran",
+      schoolKey: "ut",
       degree: "M.Sc. Computer Engineering (Computer Systems Architecture)",
       period: "2020 - 2023",
       bullets: [
@@ -132,7 +175,8 @@ const en: PortfolioContent = {
       ],
     },
     {
-      school: "Shahid Bahnar University of Kerman",
+      school: "Shahid Bahonar University of Kerman",
+      schoolKey: "kerman",
       degree: "B.Sc. Electrical Engineering (Power)",
       period: "2015 - 2019",
       bullets: [
@@ -189,7 +233,7 @@ const en: PortfolioContent = {
     },
     {
       slug: "certificate-management-system",
-      title: "Certificate Management System",
+      title: "Goharyar Internal Course Management and Certificate Issuance System",
       description:
         "Next.js + shadcn/ui internal platform: enrollment workflows, employee training dashboards, and automated Persian PDF certificates.",
       tags: ["Next.js", "shadcn/ui", "Tailwind CSS", "FastAPI"],
@@ -268,7 +312,7 @@ const en: PortfolioContent = {
     },
     {
       slug: "ijaz-ai-assistant",
-      title: "ijaz — AI Assistant for Investment and Business",
+      title: "Fardad — AI Assistant for Investment and Business",
       description:
         "React front end for a ChatGPT-style investment/business assistant with TanStack Query and TanStack Table; stayed stable through a Django-to-FastAPI migration.",
       tags: ["React", "TanStack Query", "TanStack Table", "Tailwind CSS"],
@@ -344,34 +388,68 @@ const fa: PortfolioContent = {
     github: "https://github.com/myadegari",
     skills: [
       {
-        label: "فرانت‌اند",
-        items: ["React", "Next.js", "TypeScript", "JavaScript"],
-      },
-      {
-        label: "رابط و سیستم طراحی",
+        label: "زبان‌ها",
         items: [
-          "Tailwind CSS",
-          "shadcn/ui",
-          "Framer Motion",
-          "سیستم طراحی",
-          "چیدمان واکنش‌گرا",
+          "TypeScript",
+          "JavaScript (ES2023)",
+          "Python",
+          "PHP",
+          "HTML5",
+          "CSS3",
+          "Sass",
         ],
       },
       {
-        label: "RTL و دسترس‌پذیری",
-        items: ["RTL و چندزبانه", "دسترس‌پذیری (a11y)"],
+        label: "فرانت‌اند",
+        items: [
+          "React 19",
+          "Next.js 16 (App Router, SSR/SSG)",
+          "Tailwind CSS v4",
+          "سیستم طراحی",
+          "کتابخانه کامپوننت",
+          "shadcn/ui",
+          "طراحی واکنش‌گرا",
+          "RTL و چندزبانه",
+          "دسترس‌پذیری (WCAG)",
+          "عملکرد وب",
+          "Framer Motion",
+          "GSAP",
+        ],
       },
       {
-        label: "داده و وضعیت",
-        items: ["TanStack Query", "REST API", "ماشین حالت"],
+        label: "وضعیت و داده",
+        items: [
+          "TanStack Query",
+          "TanStack Table",
+          "Zod",
+          "REST API",
+          "Redux",
+          "Redux Toolkit",
+          "Zustand",
+        ],
       },
       {
         label: "بک‌اند و داده",
-        items: ["PostgreSQL", "Drizzle ORM", "FastAPI", "Python", "Docker"],
+        items: [
+          "FastAPI",
+          "Node.js",
+          "PostgreSQL",
+          "MongoDB",
+          "Drizzle ORM",
+          "NextAuth",
+        ],
       },
       {
-        label: "کیفیت و تحویل",
-        items: ["Vitest", "Playwright", "عملکرد وب"],
+        label: "ابزار و DevOps",
+        items: [
+          "Docker",
+          "Docker Compose",
+          "Git",
+          "Vite",
+          "Turbopack",
+          "Caddy",
+          "Nginx",
+        ],
       },
     ],
     languages: ["فارسی (زبان مادری)", "انگلیسی (حرفه‌ای)"],
@@ -380,6 +458,7 @@ const fa: PortfolioContent = {
     {
       role: "مهندس فول‌استک",
       note: "سیستم کتابخانه نخل دانش",
+      links: [{ label: "دمو", href: "https://library.mehyad.ir" }],
       company: "مجتمع آموزش عالی لارستان",
       companyKey: "larestan",
       companyMeta: "تمام‌وقت · ۲ سال",
@@ -395,7 +474,8 @@ const fa: PortfolioContent = {
     },
     {
       role: "مهندس فول‌استک",
-      note: "سیستم مدیریت گواهی‌ها",
+      note: "سیستم داخلی مدیریت دوره و صدور گواهی گوهریار",
+      links: [{ label: "دمو", href: "https://govahyar.mehyad.ir" }],
       company: "مجتمع آموزش عالی لارستان",
       companyKey: "larestan",
       companyMeta: "تمام‌وقت · ۲ سال",
@@ -408,7 +488,11 @@ const fa: PortfolioContent = {
     },
     {
       role: "توسعه‌دهنده فرانت‌اند",
-      note: "بازطراحی وب‌سایت دانشگاه — lar.ac.ir",
+      note: "بازطراحی وب‌سایت دانشگاه",
+      links: [
+        { label: "نسخه جدید", href: "https://lar.ac.ir" },
+        { label: "نسخه قدیمی", href: "https://old.lar.ac.ir" },
+      ],
       company: "مجتمع آموزش عالی لارستان",
       companyKey: "larestan",
       companyMeta: "تمام‌وقت · ۲ سال",
@@ -423,7 +507,9 @@ const fa: PortfolioContent = {
     },
     {
       role: "فریلنسر فرانت‌اند، سپس توسعه‌دهنده فول‌استک",
-      company: "ijaz — دستیار هوش مصنوعی سرمایه‌گذاری و کسب‌وکار",
+      company: "Fardad — دستیار هوش مصنوعی سرمایه‌گذاری و کسب‌وکار",
+      companyKey: "fardad",
+      links: [{ label: "دمو", href: "https://fardad.mehyad.ir" }],
       companyMeta: "فریلنس · ۱ سال",
       period: "آوریل ۲۰۲۴ - مارس ۲۰۲۵",
       location: "از راه دور",
@@ -450,6 +536,7 @@ const fa: PortfolioContent = {
   education: [
     {
       school: "دانشگاه تهران",
+      schoolKey: "ut",
       degree: "کارشناسی ارشد مهندسی کامپیوتر (معماری سیستم‌های کامپیوتری)",
       period: "۲۰۲۰ - ۲۰۲۳",
       bullets: [
@@ -459,6 +546,7 @@ const fa: PortfolioContent = {
     },
     {
       school: "دانشگاه شهید باهنر کرمان",
+      schoolKey: "kerman",
       degree: "کارشناسی مهندسی برق (قدرت)",
       period: "۲۰۱۵ - ۲۰۱۹",
       bullets: [
@@ -515,7 +603,7 @@ const fa: PortfolioContent = {
     },
     {
       slug: "certificate-management-system",
-      title: "سیستم مدیریت گواهی‌ها",
+      title: "سیستم داخلی مدیریت دوره و صدور گواهی گوهریار",
       description:
         "پلتفرم داخلی Next.js + shadcn/ui: گردش ثبت‌نام، داشبورد آموزشی کارکنان و گواهی‌های PDF فارسی خودکار.",
       tags: ["Next.js", "shadcn/ui", "Tailwind CSS", "FastAPI"],
@@ -594,7 +682,7 @@ const fa: PortfolioContent = {
     },
     {
       slug: "ijaz-ai-assistant",
-      title: "ijaz — دستیار هوش مصنوعی سرمایه‌گذاری و کسب‌وکار",
+      title: "Fardad — دستیار هوش مصنوعی سرمایه‌گذاری و کسب‌وکار",
       description:
         "فرانت‌اند React برای دستیار سبک ChatGPT سرمایه‌گذاری/کسب‌وکار با TanStack Query و TanStack Table؛ پایدار در مهاجرت Django به FastAPI.",
       tags: ["React", "TanStack Query", "TanStack Table", "Tailwind CSS"],

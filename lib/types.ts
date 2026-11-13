@@ -17,6 +17,15 @@ export type CertFieldId =
  * under that company in the timeline, LinkedIn-style, so several roles (or the
  * projects a single role covered) nest beneath one company mark.
  */
+/**
+ * A demo or live-site link shown as a button under an experience entry.
+ * `label` is localized content (e.g. "Demo" / "دمو").
+ */
+export interface ExperienceLink {
+  label: string;
+  href: string;
+}
+
 export interface ExperienceItem {
   role: string;
   /** Project or context shown under the role title. */
@@ -31,10 +40,13 @@ export interface ExperienceItem {
   period: string;
   location: string;
   bullets?: string[];
+  links?: ExperienceLink[];
 }
 
 export interface EducationItem {
   school: string;
+  /** Key into `companyLogos`; falls back to a generic icon when absent. */
+  schoolKey?: string;
   degree: string;
   period: string;
   bullets?: string[];

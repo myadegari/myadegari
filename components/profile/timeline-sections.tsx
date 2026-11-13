@@ -1,11 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { Book, Briefcase } from "reicon-react";
+import { ArrowUpRight, Book, Briefcase } from "reicon-react";
 import { SectionCard } from "@/components/shared/section-card";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { companyLogos } from "@/lib/company-logos";
-import type { EducationItem, ExperienceItem } from "@/lib/types";
+import type { EducationItem, ExperienceItem, ExperienceLink } from "@/lib/types";
 
 function Mark({
   companyKey,
@@ -30,6 +32,38 @@ function Mark({
         icon
       )}
     </span>
+  );
+}
+
+/**
+ * Demo buttons for a project. Rendered as real links, not onclick handlers, so
+ * they can be opened in a new tab, copied, and followed by a crawler.
+ */
+function DemoLinks({
+  links,
+  className,
+}: {
+  links?: ExperienceLink[];
+  className?: string;
+}) {
+  if (!links || links.length === 0) return null;
+
+  return (
+    <div className={cn("flex flex-wrap gap-2", className)}>
+      {links.map((link) => (
+        <Button
+          key={link.href}
+          render={
+            <a href={link.href} target="_blank" rel="noopener noreferrer" />
+          }
+          variant="outline"
+          size="sm"
+        >
+          <ArrowUpRight data-icon="inline-start" />
+          {link.label}
+        </Button>
+      ))}
+    </div>
   );
 }
 
@@ -107,7 +141,10 @@ function RoleBody({ group }: { group: RoleGroup }) {
     return (
       <div className="min-w-0">
         <h4 className="text-sm font-semibold sm:text-base">{item.role}</h4>
-        <p className="text-xs text-muted-foreground sm:text-sm">{item.period}</p>
+        <div className="flex flex-wrap items-center gap-2">
+          <p className="text-xs text-muted-foreground sm:text-sm">{item.period}</p>
+          <DemoLinks links={item.links} />
+        </div>
         <Bullets bullets={item.bullets} />
       </div>
     );
@@ -119,11 +156,15 @@ function RoleBody({ group }: { group: RoleGroup }) {
       <ul className="mt-2 space-y-3">
         {group.items.map((item) => (
           <li key={item.note ?? item.period} className="min-w-0">
-            <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+            <div className="flex flex-col gap-0.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
               <p className="text-sm font-medium text-foreground/90">{item.note}</p>
-              <p className="shrink-0 text-xs text-muted-foreground sm:text-end sm:text-sm">
-                {item.period}
-              </p>
+              {/* Period and demo buttons sit together at the end of the row, so a
+                  reader sees what the project is, when it ran, and where to open
+                  it without scanning down past the bullets. */}
+              <div className="flex shrink-0 flex-wrap items-center gap-2 sm:justify-end">
+                <p className="text-xs text-muted-foreground sm:text-sm">{item.period}</p>
+                <DemoLinks links={item.links} />
+              </div>
             </div>
             <Bullets bullets={item.bullets} />
           </li>
@@ -227,7 +268,12 @@ export function EducationSection() {
         {data.education.map((item: EducationItem) => (
           <li key={`${item.school}-${item.period}`} className="first:pt-0 last:pb-0 pt-5 first:pb-5">
             <EducationRow
-              mark={<Book className="size-5" />}
+              mark={
+                <Mark
+                  companyKey={item.schoolKey}
+                  icon={<Book className="size-5" />}
+                />
+              }
               title={item.degree}
               subtitle={item.school}
               period={item.period}

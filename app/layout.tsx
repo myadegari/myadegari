@@ -82,7 +82,7 @@ const personJsonLd = {
   knowsAbout: content.en.profile.skills.flatMap((group) => group.items),
   alumniOf: [
     { "@type": "CollegeOrUniversity", name: "University of Tehran" },
-    { "@type": "CollegeOrUniversity", name: "Shahid Bahnar University of Kerman" },
+    { "@type": "CollegeOrUniversity", name: "Shahid Bahonar University of Kerman" },
   ],
 };
 
