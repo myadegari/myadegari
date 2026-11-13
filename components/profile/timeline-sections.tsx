@@ -1,54 +1,163 @@
 "use client";
 
+import Image from "next/image";
 import { Book, Briefcase } from "reicon-react";
 import { SectionCard } from "@/components/shared/section-card";
 import { useI18n } from "@/components/providers/i18n-provider";
+import { companyLogos } from "@/lib/company-logos";
 import type { EducationItem, ExperienceItem } from "@/lib/types";
 
-function CompanyMark({ label, icon }: { label: string; icon: React.ReactNode }) {
+function Mark({
+  companyKey,
+  icon,
+}: {
+  companyKey?: string;
+  icon: React.ReactNode;
+}) {
+  const logo = companyKey ? companyLogos[companyKey] : undefined;
+
   return (
-    <span className="flex size-12 shrink-0 items-center justify-center rounded-lg border border-border bg-muted text-muted-foreground">
-      {icon ?? label.slice(0, 1)}
+    <span className="flex size-12 shrink-0 items-center justify-center overflow-clip rounded-lg border border-border bg-muted text-muted-foreground">
+      {logo ? (
+        <Image
+          src={logo}
+          alt=""
+          aria-hidden
+          sizes="48px"
+          className="size-full object-contain p-1"
+        />
+      ) : (
+        icon
+      )}
     </span>
   );
 }
 
-function TimelineRow({
+function Bullets({ bullets }: { bullets?: string[] }) {
+  if (!bullets || bullets.length === 0) return null;
+
+  return (
+    <ul className="mt-2 list-disc space-y-1.5 ps-5 text-sm leading-relaxed text-foreground/85 marker:text-muted-foreground">
+      {bullets.map((bullet) => (
+        <li key={bullet}>{bullet}</li>
+      ))}
+    </ul>
+  );
+}
+
+interface RoleGroup {
+  key: string;
+  role: string;
+  items: ExperienceItem[];
+}
+
+interface CompanyGroup {
+  key: string;
+  company: string;
+  companyKey?: string;
+  companyMeta?: string;
+  companyPeriod?: string;
+  location: string;
+  roles: RoleGroup[];
+}
+
+/**
+ * Consecutive entries for the same company become one card, and consecutive
+ * entries with the same job title inside it share that title once while each
+ * project keeps its own name, period and bullets.
+ */
+function groupExperience(items: ExperienceItem[]): CompanyGroup[] {
+  const companies: CompanyGroup[] = [];
+
+  for (const item of items) {
+    let company = companies[companies.length - 1];
+    if (!company || company.company !== item.company) {
+      company = {
+        key: `${item.company}-${companies.length}`,
+        company: item.company,
+        companyKey: item.companyKey,
+        companyMeta: item.companyMeta,
+        companyPeriod: item.companyPeriod,
+        location: item.location,
+        roles: [],
+      };
+      companies.push(company);
+    }
+
+    const role = company.roles[company.roles.length - 1];
+    if (role && role.role === item.role) {
+      role.items.push(item);
+      continue;
+    }
+    company.roles.push({
+      key: `${item.role}-${company.roles.length}`,
+      role: item.role,
+      items: [item],
+    });
+  }
+
+  return companies;
+}
+
+function RoleBody({ group }: { group: RoleGroup }) {
+  const hasProjects = group.items.some((item) => item.note);
+
+  if (!hasProjects) {
+    const item = group.items[0];
+    return (
+      <div className="min-w-0">
+        <h4 className="text-sm font-semibold sm:text-base">{item.role}</h4>
+        <p className="text-xs text-muted-foreground sm:text-sm">{item.period}</p>
+        <Bullets bullets={item.bullets} />
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-w-0">
+      <h4 className="text-sm font-semibold sm:text-base">{group.role}</h4>
+      <ul className="mt-2 space-y-3">
+        {group.items.map((item) => (
+          <li key={item.note ?? item.period} className="min-w-0">
+            <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+              <p className="text-sm font-medium text-foreground/90">{item.note}</p>
+              <p className="shrink-0 text-xs text-muted-foreground sm:text-end sm:text-sm">
+                {item.period}
+              </p>
+            </div>
+            <Bullets bullets={item.bullets} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function EducationRow({
   mark,
   title,
   subtitle,
   period,
-  location,
   bullets,
 }: {
   mark: React.ReactNode;
   title: string;
   subtitle: string;
   period: string;
-  location?: string;
   bullets?: string[];
 }) {
   return (
     <div className="flex gap-3 sm:gap-4">
-      <CompanyMark label={subtitle} icon={mark} />
+      <Mark icon={mark} />
       <div className="min-w-0 flex-1">
         <div className="flex flex-col gap-0.5 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
           <div className="min-w-0">
             <h3 className="text-base font-semibold">{title}</h3>
             <p className="text-sm text-muted-foreground">{subtitle}</p>
           </div>
-          <div className="shrink-0 text-sm text-muted-foreground sm:text-end">
-            <p>{period}</p>
-            {location && <p className="text-xs">{location}</p>}
-          </div>
+          <p className="shrink-0 text-sm text-muted-foreground sm:text-end">{period}</p>
         </div>
-        {bullets && bullets.length > 0 && (
-          <ul className="mt-2 list-disc space-y-1.5 ps-5 text-sm leading-relaxed text-foreground/85 marker:text-muted-foreground">
-            {bullets.map((bullet) => (
-              <li key={bullet}>{bullet}</li>
-            ))}
-          </ul>
-        )}
+        <Bullets bullets={bullets} />
       </div>
     </div>
   );
@@ -56,20 +165,52 @@ function TimelineRow({
 
 export function ExperienceSection() {
   const { t, data } = useI18n();
+  const companies = groupExperience(data.experience);
 
   return (
     <SectionCard id="experience" title={t.experienceTitle}>
       <ul className="divide-y divide-border">
-        {data.experience.map((item: ExperienceItem) => (
-          <li key={`${item.company}-${item.period}`} className="first:pt-0 last:pb-0 pt-5 first:pb-5">
-            <TimelineRow
-              mark={<Briefcase className="size-5" />}
-              title={item.role}
-              subtitle={item.company}
-              period={item.period}
-              location={item.location}
-              bullets={item.bullets}
-            />
+        {companies.map((company) => (
+          <li key={company.key} className="pt-6 first:pt-0 pb-6 last:pb-0">
+            <div className="flex items-start gap-3 sm:gap-4">
+              <Mark companyKey={company.companyKey} icon={<Briefcase className="size-5" />} />
+              <div className="min-w-0 flex-1">
+                <h3 className="text-base font-semibold">{company.company}</h3>
+                {company.companyMeta && (
+                  <p className="text-xs text-muted-foreground sm:text-sm">{company.companyMeta}</p>
+                )}
+                <p className="text-xs text-muted-foreground sm:text-sm">{company.location}</p>
+                {company.companyPeriod && (
+                  <p className="text-xs text-muted-foreground sm:text-sm">
+                    {company.companyPeriod}
+                  </p>
+                )}
+                {company.roles.length === 1 ? (
+                  <div className="mt-3">
+                    <RoleBody group={company.roles[0]} />
+                  </div>
+                ) : (
+                  // Nested roles: the line and dots are positioned from the
+                  // list itself (no negative logical offsets), so they stay
+                  // aligned on both sides in RTL.
+                  <ul className="relative mt-3 space-y-4">
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-y-3 start-[7.5px] w-px bg-border"
+                    />
+                    {company.roles.map((role) => (
+                      <li key={role.key} className="relative ps-5">
+                        <span
+                          aria-hidden="true"
+                          className="absolute start-1 top-2 size-2 rounded-full bg-muted-foreground/50 ring-2 ring-card"
+                        />
+                        <RoleBody group={role} />
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
           </li>
         ))}
       </ul>
@@ -85,7 +226,7 @@ export function EducationSection() {
       <ul className="divide-y divide-border">
         {data.education.map((item: EducationItem) => (
           <li key={`${item.school}-${item.period}`} className="first:pt-0 last:pb-0 pt-5 first:pb-5">
-            <TimelineRow
+            <EducationRow
               mark={<Book className="size-5" />}
               title={item.degree}
               subtitle={item.school}

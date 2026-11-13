@@ -63,6 +63,7 @@ export interface UiStrings {
   roleTitle: string;
   challengesTitle: string;
   galleryTitle: string;
+  galleryHint: string;
   projectNotFound: string;
   projectNotFoundLead: string;
   prevProject: string;
@@ -138,6 +139,7 @@ const en: UiStrings = {
   roleTitle: "My role",
   challengesTitle: "Challenges",
   galleryTitle: "Gallery",
+  galleryHint: "Click any screenshot to view it full size.",
   projectNotFound: "Project not found",
   projectNotFoundLead: "The project you are looking for does not exist.",
   prevProject: "Previous project",
@@ -214,6 +216,7 @@ const fa: UiStrings = {
   roleTitle: "نقش من",
   challengesTitle: "چالش‌ها",
   galleryTitle: "گالری",
+  galleryHint: "برای مشاهده در اندازه کامل، روی هر تصویر کلیک کنید.",
   projectNotFound: "پروژه پیدا نشد",
   projectNotFoundLead: "پروژه‌ای که دنبال آن هستید وجود ندارد.",
   prevProject: "پروژه قبلی",

@@ -12,12 +12,25 @@ export type CertFieldId =
   | "software-engineering"
   | "ai-engineering";
 
+/**
+ * One experience entry. Consecutive entries that share a `company` are grouped
+ * under that company in the timeline, LinkedIn-style, so several roles (or the
+ * projects a single role covered) nest beneath one company mark.
+ */
 export interface ExperienceItem {
   role: string;
+  /** Project or context shown under the role title. */
+  note?: string;
   company: string;
+  /** Key into `companyLogos`; falls back to a generic icon when absent. */
+  companyKey?: string;
+  /** Company-level line under its name, e.g. "Full-time · 2 yrs". */
+  companyMeta?: string;
+  /** Company-level date range, shown under the location line. */
+  companyPeriod?: string;
   period: string;
   location: string;
-  bullets: string[];
+  bullets?: string[];
 }
 
 export interface EducationItem {
@@ -54,6 +67,8 @@ export interface CertificateItem {
 export interface ProfileInfo {
   name: string;
   initials: string;
+  /** University shown as a badge beside the name; localized per language. */
+  university: string;
   headline: string;
   location: string;
   about: string;

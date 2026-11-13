@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowUpRight, Export } from "reicon-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/components/providers/i18n-provider";
+import { ProjectGallery } from "@/components/shared/project-gallery";
 import { AnimatedSection } from "@/fx/animated-section";
 import { getProjectBySlug, getProjectNeighbors } from "@/lib/projects";
 
@@ -117,18 +118,8 @@ export function ProjectDetail({ slug }: { slug: string }) {
       {project.gallery && project.gallery.length > 0 && (
         <AnimatedSection as="section" className="rounded-lg bg-card p-4 text-card-foreground ring-1 ring-foreground/10 sm:p-6">
           <h2 className="text-lg font-semibold">{t.galleryTitle}</h2>
-          <div className="mt-3 grid gap-3 sm:grid-cols-2">
-            {project.gallery.map((src) => (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                key={src}
-                src={src}
-                alt={project.title}
-                loading="lazy"
-                className="w-full rounded-lg border border-border object-cover"
-              />
-            ))}
-          </div>
+          <p className="mt-1 text-xs text-muted-foreground">{t.galleryHint}</p>
+          <ProjectGallery images={project.gallery} title={project.title} />
         </AnimatedSection>
       )}
 
