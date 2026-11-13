@@ -34,10 +34,39 @@ export const viewport: Viewport = {
   ],
 };
 
+const siteUrl = "https://mehyad.ir";
+const siteTitle = "Mohammadmehdi Yadegarifard | Portfolio";
+const siteDescription =
+  "Fullstack developer portfolio: experience, education, projects, and certificates.";
+
 export const metadata: Metadata = {
-  title: "Mohammadmehdi Yadegarifard | Portfolio",
-  description:
-    "Fullstack developer portfolio: experience, education, projects, and certificates.",
+  // Relative Open Graph image and URL paths in every route resolve against this.
+  metadataBase: new URL(siteUrl),
+  title: siteTitle,
+  description: siteDescription,
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "Mohammadmehdi Yadegarifard",
+    title: siteTitle,
+    description: siteDescription,
+    locale: "en_US",
+    alternateLocale: ["fa_IR"],
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: siteTitle,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
+    images: ["/og.png"],
+  },
 };
 
 const personJsonLd = {
@@ -47,7 +76,7 @@ const personJsonLd = {
   alternateName: content.fa.profile.name,
   jobTitle: "Front-End Developer",
   description: content.en.profile.about,
-  url: "https://myadegari.vercel.app",
+  url: siteUrl,
   email: content.en.profile.email,
   sameAs: [content.en.profile.linkedin, content.en.profile.github],
   knowsAbout: content.en.profile.skills,

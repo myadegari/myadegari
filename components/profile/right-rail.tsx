@@ -1,9 +1,23 @@
 "use client";
 
-import { Envelope, Language, Link, PaperPlane } from "reicon-react";
+import { useSyncExternalStore } from "react";
+import { Envelope, Language, Link, PaperPlane, Phone } from "reicon-react";
 import { SectionCard } from "@/components/shared/section-card";
 import { Badge } from "@/components/ui/badge";
 import { useI18n } from "@/components/providers/i18n-provider";
+
+/**
+ * True only when the visitor arrived with `?recruiter=true`.
+ *
+ * The snapshot is read from `window.location`, so the server snapshot is always
+ * `false` and the number never appears in the HTML a crawler or a casual
+ * visitor receives. `useSyncExternalStore` also keeps this out of an effect
+ * body, which would otherwise force an extra cascading render.
+ */
+const subscribeToLocation = () => () => {};
+const getRecruiterSnapshot = () =>
+  new URLSearchParams(window.location.search).get("recruiter") === "true";
+const getRecruiterServerSnapshot = () => false;
 
 /**
  * On desktop this is a sticky column in the page grid.
@@ -21,6 +35,11 @@ import { useI18n } from "@/components/providers/i18n-provider";
 export function RightRail() {
   const { t, data } = useI18n();
   const { profile } = data;
+  const isRecruiterView = useSyncExternalStore(
+    subscribeToLocation,
+    getRecruiterSnapshot,
+    getRecruiterServerSnapshot
+  );
 
   return (
     <aside
@@ -58,6 +77,19 @@ export function RightRail() {
               </span>
             </a>
           </li>
+          {isRecruiterView && profile.phone && (
+            <li>
+              <a
+                href={`tel:${profile.phone}`}
+                className="flex items-center gap-2.5 text-primary hover:underline"
+              >
+                <Phone className="size-4 shrink-0 text-muted-foreground" />
+                <span className="min-w-0 truncate" dir="ltr">
+                  {profile.phone}
+                </span>
+              </a>
+            </li>
+          )}
           {profile.website && (
             <li>
               <a

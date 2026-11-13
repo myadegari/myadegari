@@ -13,8 +13,9 @@ const en: PortfolioContent = {
       "Front-end developer specializing in React, Next.js, and TypeScript. I build design systems, accessible component APIs, and fast, responsive interfaces with full RTL/i18n support. I own server state with TanStack Query and tune rendering for Core Web Vitals; full-stack experience (FastAPI, PostgreSQL) lets me ship features end to end when a team needs it.",
     email: "mehyad97@gmail.com",
     telegram: "@M3hyad",
+    phone: "+989217243259",
     linkedin: "https://www.linkedin.com/in/mohammadmehdiyadegarifard",
-    github: "https://github.com/mehdiyadegari",
+    github: "https://github.com/myadegari",
     skills: [
       "React",
       "Next.js",
@@ -320,8 +321,9 @@ const fa: PortfolioContent = {
       "توسعه‌دهنده فرانت‌اند با تخصص در React، Next.js و TypeScript. سیستم‌های طراحی، APIهای کامپوننت دسترس‌پذیر و رابط‌های سریع و واکنش‌گرا با پشتیبانی کامل RTL/چندزبانه می‌سازم. وضعیت سرور را با TanStack Query مدیریت می‌کنم و رندر را برای Core Web Vitals بهینه می‌کنم؛ تجربه فول‌استک (FastAPI، PostgreSQL) به من امکان می‌دهد در صورت نیاز قابلیت‌ها را از صفر تا صد تحویل دهم.",
     email: "mehyad97@gmail.com",
     telegram: "@M3hyad",
+    phone: "+989217243259",
     linkedin: "https://www.linkedin.com/in/mohammadmehdiyadegarifard",
-    github: "https://github.com/mehdiyadegari",
+    github: "https://github.com/myadegari",
     skills: [
       "React",
       "Next.js",

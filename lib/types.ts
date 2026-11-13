@@ -75,6 +75,11 @@ export interface ProfileInfo {
   email: string;
   telegram: string;
   /**
+   * Optional. Rendered in the contact card only for visitors who arrive with
+   * `?recruiter=true`, so the number is never in the server HTML.
+   */
+  phone?: string;
+  /**
    * Optional. The site does not link to itself, so this is normally unset and
    * the hero, right rail and footer omit the link entirely.
    */
