@@ -112,11 +112,20 @@ export function RightRail() {
         dustExit="stayOnDesktop"
         className="order-2 lg:order-none"
       >
-        <div className="flex flex-wrap gap-1.5">
-          {profile.skills.map((skill) => (
-            <Badge key={skill} variant="secondary">
-              {skill}
-            </Badge>
+        <div className="space-y-3">
+          {profile.skills.map((group) => (
+            <div key={group.label}>
+              <p className="mb-1.5 text-xs font-medium text-muted-foreground">
+                {group.label}
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {group.items.map((skill) => (
+                  <Badge key={skill} variant="secondary">
+                    {skill}
+                  </Badge>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </SectionCard>

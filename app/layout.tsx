@@ -37,7 +37,7 @@ export const viewport: Viewport = {
 const siteUrl = "https://mehyad.ir";
 const siteTitle = "Mohammadmehdi Yadegarifard | Portfolio";
 const siteDescription =
-  "Fullstack developer portfolio: experience, education, projects, and certificates.";
+  "Front-end developer with full-stack delivery experience: React, Next.js, TypeScript, design systems, and RTL/i18n interfaces.";
 
 export const metadata: Metadata = {
   // Relative Open Graph image and URL paths in every route resolve against this.
@@ -79,7 +79,7 @@ const personJsonLd = {
   url: siteUrl,
   email: content.en.profile.email,
   sameAs: [content.en.profile.linkedin, content.en.profile.github],
-  knowsAbout: content.en.profile.skills,
+  knowsAbout: content.en.profile.skills.flatMap((group) => group.items),
   alumniOf: [
     { "@type": "CollegeOrUniversity", name: "University of Tehran" },
     { "@type": "CollegeOrUniversity", name: "Shahid Bahnar University of Kerman" },

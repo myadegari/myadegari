@@ -2,7 +2,7 @@
 
 # Hi there, I'm Mohammad Mehdi Yadegarifard 👋
 
-[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=22&pause=1000&color=22C55E&center=true&vCenter=true&width=650&lines=Fullstack+Developer;FastAPI+%7C+Next.js+%7C+TypeScript;Design+Systems+%26+Performance)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=22&pause=1000&color=22C55E&center=true&vCenter=true&width=650&lines=Front-End+Developer;React+%7C+Next.js+%7C+TypeScript;Design+Systems+%26+Full-stack+Delivery)](https://git.io/typing-svg)
 
 I build fast, accessible web products with clean component APIs and consistent UI architecture — currently focused on React, Python, and performance-minded applications.
 

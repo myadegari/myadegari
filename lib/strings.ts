@@ -14,6 +14,11 @@ export interface UiStrings {
   contactMe: string;
   emailMe: string;
   aboutTitle: string;
+  lighthousePerformance: string;
+  lighthouseAccessibility: string;
+  lighthouseBestPractices: string;
+  lighthouseSeo: string;
+  lighthouseNote: string;
   experienceTitle: string;
   educationTitle: string;
   projectsTitle: string;
@@ -89,6 +94,11 @@ const en: UiStrings = {
   contactMe: "Contact me",
   emailMe: "Email me",
   aboutTitle: "About",
+  lighthousePerformance: "Performance",
+  lighthouseAccessibility: "Accessibility",
+  lighthouseBestPractices: "Best practices",
+  lighthouseSeo: "SEO",
+  lighthouseNote: "Lighthouse mobile scores for this site, measured on a production build.",
   experienceTitle: "Experience",
   educationTitle: "Education",
   projectsTitle: "Projects",
@@ -166,6 +176,11 @@ const fa: UiStrings = {
   contactMe: "تماس با من",
   emailMe: "ایمیل بزنید",
   aboutTitle: "درباره من",
+  lighthousePerformance: "عملکرد",
+  lighthouseAccessibility: "دسترس‌پذیری",
+  lighthouseBestPractices: "بهترین روش‌ها",
+  lighthouseSeo: "سئو",
+  lighthouseNote: "امتیازهای Lighthouse موبایل همین سایت، اندازه‌گیری‌شده روی نسخه پروداکشن.",
   experienceTitle: "سوابق کاری",
   educationTitle: "تحصیلات",
   projectsTitle: "پروژه‌ها",

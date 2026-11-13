@@ -64,6 +64,15 @@ export interface CertificateItem {
   credentialId?: string;
 }
 
+/**
+ * One labelled row of the skills card. Grouping keeps the card readable while
+ * letting the list grow, and the label is localized per language.
+ */
+export interface SkillGroup {
+  label: string;
+  items: string[];
+}
+
 export interface ProfileInfo {
   name: string;
   initials: string;
@@ -86,7 +95,7 @@ export interface ProfileInfo {
   website?: string;
   linkedin: string;
   github: string;
-  skills: string[];
+  skills: SkillGroup[];
   languages: string[];
 }
 
