@@ -44,6 +44,10 @@ export function SiteHeader() {
   // Hover and keyboard focus both preview the bar; it falls back to the
   // scroll-spy's section once neither is showing.
   const [previewId, setPreviewId] = useState<string | null>(null);
+  // The mobile drawer is controlled so its links can close it themselves. Base
+  // UI's Close primitive would otherwise turn a navigation anchor into a
+  // button, losing link semantics (and swallowing the navigation).
+  const [drawerOpen, setDrawerOpen] = useState(false);
   // Two distinct things. `currentSection` is where the reader actually is, and
   // is the only thing allowed to drive aria-current and the text colour.
   // `barSection` additionally follows the pointer. Conflating them would
@@ -176,7 +180,11 @@ export function SiteHeader() {
           </Button>
           {/* The panel opens from the inline-start, the conventional nav-drawer
               side: left in LTR, right in RTL. */}
-          <Drawer swipeDirection={dir === "rtl" ? "right" : "left"}>
+          <Drawer
+            open={drawerOpen}
+            onOpenChange={setDrawerOpen}
+            swipeDirection={dir === "rtl" ? "right" : "left"}
+          >
             <DrawerTrigger
               render={
                 <Button
@@ -211,30 +219,24 @@ export function SiteHeader() {
                 className="flex flex-col gap-0.5 p-2"
               >
                 {sectionNavItems.map((item) => (
-                  <DrawerClose
+                  <Link
                     key={item.id}
-                    render={
-                      <Link
-                        href={`/#${item.id}`}
-                        className="rounded-md px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                      />
-                    }
+                    href={`/#${item.id}`}
+                    onClick={() => setDrawerOpen(false)}
+                    className="rounded-md px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                   >
                     {t[item.key]}
-                  </DrawerClose>
+                  </Link>
                 ))}
-                <DrawerClose
-                  render={
-                    <a
-                      href="/resume.pdf"
-                      download
-                      className="mt-1.5 inline-flex h-9 items-center justify-center gap-1.5 rounded-lg bg-primary px-2.5 text-sm font-medium text-primary-foreground"
-                    />
-                  }
+                <a
+                  href="/resume.pdf"
+                  download
+                  onClick={() => setDrawerOpen(false)}
+                  className="mt-1.5 inline-flex h-9 items-center justify-center gap-1.5 rounded-lg bg-primary px-2.5 text-sm font-medium text-primary-foreground"
                 >
                   <Download data-icon="inline-start" />
                   {t.downloadCv}
-                </DrawerClose>
+                </a>
               </nav>
             </DrawerContent>
           </Drawer>
