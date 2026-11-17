@@ -38,6 +38,12 @@ export interface ExperienceItem {
   /** Company-level date range, shown under the location line. */
   companyPeriod?: string;
   period: string;
+  /**
+   * Show the period directly under the role title instead of at the end of the
+   * project row. Useful when `note` is a long title and the date should read
+   * as part of the role heading.
+   */
+  periodAboveNote?: boolean;
   location: string;
   bullets?: string[];
   links?: ExperienceLink[];

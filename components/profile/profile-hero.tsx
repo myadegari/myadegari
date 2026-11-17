@@ -129,7 +129,16 @@ export function ProfileHero() {
                 <span className="size-1.5 rounded-full bg-primary animate-pulse motion-reduce:animate-none" />
                 {t.openToWork}
               </span>
-              <span className="inline-flex min-w-0 items-center gap-1.5 text-xs font-medium text-muted-foreground">
+            </div>
+            <p className="mt-1 text-base text-muted-foreground sm:text-lg">
+              {profile.headline}
+            </p>
+            <p className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
+              <span className="inline-flex items-center gap-1.5">
+                <Location className="size-4 shrink-0" />
+                {profile.location}
+              </span>
+              <span className="inline-flex min-w-0 items-center gap-1.5">
                 <Image
                   src={Utlogo}
                   alt=""
@@ -141,18 +150,9 @@ export function ProfileHero() {
                   // instead of the largest candidate.
                   sizes="(min-width: 640px) 24px, 20px"
                   quality={90}
-                  className="size-5 shrink-0 object-contain sm:size-6"
+                  className="size-4 shrink-0 object-contain sm:size-5"
                 />
                 <span className="truncate">{profile.university}</span>
-              </span>
-            </div>
-            <p className="mt-1 text-base text-muted-foreground sm:text-lg">
-              {profile.headline}
-            </p>
-            <p className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
-              <span className="inline-flex items-center gap-1.5">
-                <Location className="size-4 shrink-0" />
-                {profile.location}
               </span>
               {profile.website && (
                 <a

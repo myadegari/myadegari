@@ -140,10 +140,14 @@ function RoleBody({ group }: { group: RoleGroup }) {
     const item = group.items[0];
     return (
       <div className="min-w-0">
-        <h4 className="text-sm font-semibold sm:text-base">{item.role}</h4>
-        <div className="flex flex-wrap items-center gap-2">
-          <p className="text-xs text-muted-foreground sm:text-sm">{item.period}</p>
-          <DemoLinks links={item.links} />
+        <div className="flex flex-col gap-0.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+          <h4 className="min-w-0 text-sm font-semibold sm:text-base">{item.role}</h4>
+          <div className="flex shrink-0 flex-wrap items-center gap-2 sm:justify-end">
+            {item.period && (
+              <p className="text-xs text-muted-foreground sm:text-sm">{item.period}</p>
+            )}
+            <DemoLinks links={item.links} />
+          </div>
         </div>
         <Bullets bullets={item.bullets} />
       </div>
@@ -153,16 +157,26 @@ function RoleBody({ group }: { group: RoleGroup }) {
   return (
     <div className="min-w-0">
       <h4 className="text-sm font-semibold sm:text-base">{group.role}</h4>
+      {group.items[0].periodAboveNote && group.items[0].period && (
+        <p className="text-xs text-muted-foreground sm:text-sm">
+          {group.items[0].period}
+        </p>
+      )}
       <ul className="mt-2 space-y-3">
         {group.items.map((item) => (
           <li key={item.note ?? item.period} className="min-w-0">
-            <div className="flex flex-col gap-0.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-              <p className="text-sm font-medium text-foreground/90">{item.note}</p>
+            <div className="relative flex flex-col gap-0.5 py-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+              {/* Logical inset and gradient direction so the fade starts on the
+                  inline-start edge and runs toward the inline-end in both RTL and LTR. */}
+              <span className="absolute inset-y-0 -start-3 h-full w-full bg-linear-to-r from-border/30 rtl:bg-linear-to-l" />
+              <p className="text-sm font-medium text-foreground/90 z-10 py-2">{item.note}</p>
               {/* Period and demo buttons sit together at the end of the row, so a
                   reader sees what the project is, when it ran, and where to open
                   it without scanning down past the bullets. */}
-              <div className="flex shrink-0 flex-wrap items-center gap-2 sm:justify-end">
-                <p className="text-xs text-muted-foreground sm:text-sm">{item.period}</p>
+              <div className="flex shrink-0 flex-wrap items-center gap-2 sm:justify-end z-10">
+                {!item.periodAboveNote && (
+                  <p className="text-xs text-muted-foreground sm:text-sm">{item.period}</p>
+                )}
                 <DemoLinks links={item.links} />
               </div>
             </div>
