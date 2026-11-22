@@ -33,6 +33,9 @@ const eslintConfig = defineConfig([
   },
   // Override default ignores of eslint-config-next.
   globalIgnores([
+    // Vendored agent skills: reference assets and scripts, not app source.
+    ".agents/**",
+    ".claude/**",
     // Default ignores of eslint-config-next:
     ".next/**",
     "out/**",

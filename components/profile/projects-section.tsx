@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { cn } from "@/lib/utils";
+import { CommitHistory } from "@/components/shared/commit-history";
 
 export function ProjectsSection() {
   const { t, data } = useI18n();
@@ -93,6 +94,7 @@ export function ProjectsSection() {
               <p className="text-sm leading-relaxed text-muted-foreground">
                 {project.description}
               </p>
+              <CommitHistory project={project} className="mt-3" />
             </div>
             <div className="mt-auto flex flex-wrap gap-1.5">
               {project.tags.map((tag) => (
@@ -122,17 +124,20 @@ export function ProjectsSection() {
                     {t.viewDemo}
                   </Button>
                 )}
-                {project.repo && (
+                {(project.repos ??
+                  (project.repo ? [{ label: t.viewRepo, href: project.repo }] : [])
+                ).map((repo) => (
                   <Button
-                    render={<a href={project.repo} target="_blank" rel="noopener noreferrer" />}
+                    key={repo.href}
+                    render={<a href={repo.href} target="_blank" rel="noopener noreferrer" />}
                     variant="ghost"
                     size="sm"
                     className="-ms-2 text-primary hover:text-primary"
                   >
                     <ArrowUpRight data-icon="inline-start" />
-                    {t.viewRepo}
+                    {repo.label}
                   </Button>
-                )}
+                ))}
               </div>
           </AnimatedSection>
         ))}

@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { ProjectGallery } from "@/components/shared/project-gallery";
+import { CommitHistory } from "@/components/shared/commit-history";
 import { AnimatedSection } from "@/fx/animated-section";
 import { getProjectBySlug, getProjectNeighbors } from "@/lib/projects";
 
@@ -28,6 +29,8 @@ export function ProjectDetail({ slug }: { slug: string }) {
   }
 
   const { project } = found;
+  const repoLinks =
+    project.repos ?? (project.repo ? [{ label: t.viewRepo, href: project.repo }] : []);
 
   return (
     <article className="space-y-6">
@@ -51,7 +54,8 @@ export function ProjectDetail({ slug }: { slug: string }) {
             </Badge>
           ))}
         </div>
-        {(project.demo || project.repo) && (
+        <CommitHistory project={project} className="mt-4" />
+        {(project.demo || repoLinks.length > 0) && (
           <div className="mt-4 flex flex-wrap gap-2">
             {project.demo && (
               <Button render={<a href={project.demo} target="_blank" rel="noopener noreferrer" />}>
@@ -59,15 +63,16 @@ export function ProjectDetail({ slug }: { slug: string }) {
                 {t.viewDemo}
               </Button>
             )}
-            {project.repo && (
+            {repoLinks.map((repo) => (
               <Button
-                render={<a href={project.repo} target="_blank" rel="noopener noreferrer" />}
+                key={repo.href}
+                render={<a href={repo.href} target="_blank" rel="noopener noreferrer" />}
                 variant="outline"
               >
                 <ArrowUpRight data-icon="inline-start" />
-                {t.viewRepo}
+                {repo.label}
               </Button>
-            )}
+            ))}
           </div>
         )}
       </AnimatedSection>

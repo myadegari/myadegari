@@ -3,7 +3,6 @@
 import { useSyncExternalStore } from "react";
 import { Envelope, Language, Link, PaperPlane, Phone } from "reicon-react";
 import { SectionCard } from "@/components/shared/section-card";
-import { Badge } from "@/components/ui/badge";
 import { useI18n } from "@/components/providers/i18n-provider";
 
 /**
@@ -104,30 +103,6 @@ export function RightRail() {
             </li>
           )}
         </ul>
-      </SectionCard>
-
-      <SectionCard
-        id="skills"
-        title={t.skillsTitle}
-        dustExit="stayOnDesktop"
-        className="order-2 lg:order-none"
-      >
-        <div className="space-y-3">
-          {profile.skills.map((group) => (
-            <div key={group.label}>
-              <p className="mb-1.5 text-xs font-medium text-muted-foreground">
-                {group.label}
-              </p>
-              <div className="flex flex-wrap gap-1.5">
-                {group.items.map((skill) => (
-                  <Badge key={skill} variant="secondary">
-                    {skill}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
       </SectionCard>
 
       {/* Last on mobile: supplementary context, not something to reach first. */}

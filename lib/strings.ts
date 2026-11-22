@@ -46,6 +46,9 @@ export interface UiStrings {
   present: string;
   viewDemo: string;
   viewRepo: string;
+  commitHistory: string;
+  projectDuration: string;
+  lastUpdate: string;
   verify: string;
   website: string;
   switchToFa: string;
@@ -127,6 +130,9 @@ const en: UiStrings = {
   present: "Present",
   viewDemo: "Live demo",
   viewRepo: "Source code",
+  commitHistory: "Commit history",
+  projectDuration: "Duration",
+  lastUpdate: "Last update",
   verify: "Verify",
   website: "Website",
   switchToFa: "فارسی",
@@ -209,6 +215,9 @@ const fa: UiStrings = {
   present: "تاکنون",
   viewDemo: "نمایش زنده",
   viewRepo: "کد منبع",
+  commitHistory: "تاریخچه کامیت",
+  projectDuration: "مدت",
+  lastUpdate: "آخرین به‌روزرسانی",
   verify: "استعلام",
   website: "وب‌سایت",
   switchToFa: "فارسی",

@@ -65,6 +65,19 @@ export interface ProjectItem {
   tags: string[];
   demo?: string;
   repo?: string;
+  /**
+   * Several repositories shown as separate buttons, e.g. a frontend and a
+   * backend service. Takes precedence over `repo` when present.
+   */
+  repos?: ExperienceLink[];
+  /** Localized date of the repository's first commit. */
+  firstCommit?: string;
+  /** Localized date of the repository's latest commit. */
+  lastCommit?: string;
+  /** Localized time between the first and last commit. */
+  duration?: string;
+  /** Raw ISO date of the last commit, used to compute the last update. */
+  lastCommitISO?: string;
   overview?: string;
   features?: string[];
   techStack?: string[];
