@@ -34,7 +34,7 @@ export const viewport: Viewport = {
   ],
 };
 
-const siteUrl = "https://mehyad.ir";
+const siteUrl = "https://www.mehyad.ir";
 const siteTitle = "Mohammadmehdi Yadegarifard | Portfolio";
 const siteDescription =
   "Front-end developer with full-stack delivery experience: React, Next.js, TypeScript, design systems, and RTL/i18n interfaces.";
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     alternateLocale: ["fa_IR"],
     images: [
       {
-        url: "/og.png",
+        url: "/og-v2.png",
         width: 1200,
         height: 630,
         alt: siteTitle,
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
-    images: ["/og.png"],
+    images: ["/og-v2.png"],
   },
 };
 
